@@ -37,22 +37,19 @@ const Education = () => {
           <h2 className="font-display text-4xl text-foreground">Education</h2>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
           {educationData.map((edu, index) => (
-            <div 
-              key={index}
-              className="p-6 bg-card rounded-2xl border border-border"
-            >
-              <div className="flex justify-between items-start mb-2">
+            <div key={index} className="border-l-2 border-primary/30 pl-6">
+              <div className="flex justify-between items-start mb-1">
                 <h3 className="font-semibold text-foreground">{edu.degree}</h3>
                 {edu.credits && (
-                  <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">
+                  <span className="text-xs text-primary">
                     {edu.credits}
                   </span>
                 )}
               </div>
               <p className="text-primary text-sm mb-1">{edu.school}</p>
-              <p className="text-muted-foreground text-sm mb-3">
+              <p className="text-muted-foreground text-sm mb-2">
                 {edu.period} {edu.type && `• ${edu.type}`}
               </p>
               {edu.description && (

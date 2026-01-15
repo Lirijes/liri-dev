@@ -28,20 +28,18 @@ const Skills = () => {
           <h2 className="font-display text-4xl text-foreground">Skills</h2>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {skillCategories.map((category, index) => (
-            <div 
-              key={index}
-              className="p-6 bg-card rounded-2xl border border-border"
-            >
-              <h3 className="font-semibold text-foreground mb-4">{category.title}</h3>
+            <div key={index}>
+              <h3 className="font-semibold text-foreground mb-4 pb-2 border-b border-border">
+                {category.title}
+              </h3>
               <ul className="space-y-2">
                 {category.skills.map((skill, skillIndex) => (
                   <li 
                     key={skillIndex}
-                    className="text-muted-foreground text-sm flex items-center gap-2"
+                    className="text-muted-foreground text-sm"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                     {skill}
                   </li>
                 ))}

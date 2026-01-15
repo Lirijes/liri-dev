@@ -36,36 +36,35 @@ const Experience = () => {
           <h2 className="font-display text-4xl text-foreground">Experience</h2>
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-12">
           {experiences.map((exp, index) => (
             <div 
               key={index}
-              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors"
+              className="grid md:grid-cols-12 gap-6 pb-12 border-b border-border last:border-0 last:pb-0"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">{exp.title}</h3>
-                  <p className="text-primary">{exp.company}</p>
-                </div>
-                <div className="text-sm text-muted-foreground text-right">
-                  <p>{exp.period}</p>
-                  <p>{exp.location}</p>
-                </div>
+              <div className="md:col-span-3 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground">{exp.period}</p>
+                <p>{exp.location}</p>
               </div>
               
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                {exp.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2">
-                {exp.technologies.map((tech, techIndex) => (
-                  <span 
-                    key={techIndex}
-                    className="px-3 py-1 bg-muted text-muted-foreground rounded-full text-xs"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <div className="md:col-span-9">
+                <h3 className="text-xl font-semibold text-foreground mb-1">{exp.title}</h3>
+                <p className="text-primary mb-4">{exp.company}</p>
+                
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  {exp.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech, techIndex) => (
+                    <span 
+                      key={techIndex}
+                      className="text-xs text-muted-foreground"
+                    >
+                      {tech}{techIndex < exp.technologies.length - 1 && " ·"}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
