@@ -47,6 +47,8 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        coral: "hsl(var(--coral))",
+        lavender: "hsl(var(--lavender))",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
