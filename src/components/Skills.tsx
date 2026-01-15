@@ -14,12 +14,12 @@ const skillCategories = [
   {
     title: "Database & Tools",
     skills: ["MS SQL Server", "Azure DevOps", "Git", "SCRUM"],
-    color: "coral"
+    color: ""
   },
   {
     title: "Other",
-    skills: ["E-commerce Solutions", "CMS", "SEO Optimization", "Unit & Integration Tests", "Workflow Automation"],
-    color: "lavender"
+    skills: ["E-commerce Solutions", "CMS", "SEO Optimization", "Digital Marketing", "Unit & Integration Tests", "Workflow Automation"],
+    color: ""
   }
 ];
 
@@ -49,7 +49,7 @@ const Skills = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <h3 className={`font-semibold text-foreground mb-4 pb-2 border-b-2 border-${category.color}`}>
+              <h3 className={`font-semibold text-foreground mb-4 pb-2 border-b-2 border-border/50`}>
                 {category.title}
               </h3>
               <ul className="space-y-2">

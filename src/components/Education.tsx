@@ -31,7 +31,7 @@ const educationData = [
 
 const Education = () => {
   return (
-    <section id="education" className="py-20 bg-secondary/30">
+    <section id="education" className="py-20">
       <div className="container mx-auto px-6">
         <motion.div 
           className="mb-12"
@@ -50,27 +50,24 @@ const Education = () => {
           {educationData.map((edu, index) => (
             <motion.div 
               key={index} 
-              className={`border-l-2 pl-6 transition-colors duration-300 hover:border-primary ${edu.highlight ? 'border-primary' : 'border-accent/50'}`}
+              className={`border-l-2 pl-6  duration-300 ${edu.highlight ? 'border-primary' : 'border-border/50'}`}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="flex justify-between items-start mb-1">
                 <motion.h3 
                   className="font-semibold text-foreground"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   {edu.degree}
                 </motion.h3>
                 {edu.credits && (
-                  <span className="text-xs text-accent font-medium px-2 py-0.5 bg-accent/10 rounded-full">
+                  <span className="text-xs px-2 py-1 rounded-md text-muted-foreground rounded-full border border-border">
                     {edu.credits}
                   </span>
                 )}
               </div>
-              <p className="text-primary text-sm mb-1 font-medium">{edu.school}</p>
+              <p className="text text-sm mb-1 font-medium">{edu.school}</p>
               <p className="text-muted-foreground text-sm mb-2">
                 {edu.period} {edu.type && `• ${edu.type}`}
               </p>

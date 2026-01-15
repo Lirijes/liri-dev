@@ -2,13 +2,6 @@ import { motion } from "framer-motion";
 import profileImage from "@/assets/profile.jpg";
 
 const About = () => {
-  const skills = [
-    { label: ".NET / C#", color: "bg-primary/10 text-primary border border-primary/20" },
-    { label: "React", color: "bg-accent/10 text-accent border border-accent/20" },
-    { label: "Vue.js", color: "bg-coral/10 text-coral border border-coral/20" },
-    { label: "TypeScript", color: "bg-lavender/10 text-lavender border border-lavender/20" },
-    { label: "E-commerce", color: "bg-primary/10 text-primary border border-primary/20" },
-  ];
 
   return (
     <section id="about" className="pt-32 pb-20">
@@ -51,10 +44,7 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              I'm a fullstack developer who loves creating digital solutions that truly make 
-              a difference for users. I'm driven by understanding problems, finding smart 
-              technical solutions, and constantly evolving. Currently looking for a place 
-              where I can contribute my code and grow together with an engaged team.
+              I’m a full-stack developer focused on building clear, maintainable digital solutions. I enjoy understanding real problems, improving existing systems, and growing together with a collaborative team.
             </motion.p>
             
             <motion.div 
@@ -63,18 +53,6 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              {skills.map((skill, index) => (
-                <motion.span 
-                  key={skill.label}
-                  className={`px-4 py-2 rounded-full text-sm font-medium ${skill.color} transition-all duration-300 hover:scale-105 cursor-default`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  {skill.label}
-                </motion.span>
-              ))}
             </motion.div>
             
             <motion.div 

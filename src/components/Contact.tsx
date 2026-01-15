@@ -33,32 +33,25 @@ const Contact = () => {
           >
             <motion.a 
               href="mailto:Lirije11@hotmail.com"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
             >
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
-              >
-                <Mail className="w-4 h-4 group-hover:text-primary" />
-              </motion.div>
+              <Mail className="w-4 h-4" />
               Lirije11@hotmail.com
             </motion.a>
             
             <motion.a 
               href="tel:+46700999544"
-              className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+
             >
               <Phone className="w-4 h-4" />
               +46 70 099 95 44
             </motion.a>
             
             <motion.span 
-              className="flex items-center gap-2 text-muted-foreground"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
             >
-              <MapPin className="w-4 h-4 text-coral" />
+              <MapPin className="w-4 h-4" />
               Skene, Sweden
             </motion.span>
           </motion.div>
@@ -71,25 +64,25 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <motion.a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <Github size={20} />
-            </motion.a>
-            <motion.a 
-              href="https://linkedin.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors"
-              whileHover={{ scale: 1.1, rotate: -360 }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <Linkedin size={20} />
-            </motion.a>
+            href="https://github.com/lirijes" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:textt transition-colors"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Github size={20} />
+          </motion.a>
+          <motion.a 
+            href="https://linkedin.com/in/lirijes" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text transition-colors"
+            whileHover={{ scale: 1.1, rotate: -5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Linkedin size={20} />
+          </motion.a>
           </motion.div>
         </div>
       </div>

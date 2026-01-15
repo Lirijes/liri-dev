@@ -6,8 +6,8 @@ const experiences = [
     company: "Readymade AB",
     location: "Skene",
     period: "Sep 2025 - Present",
-    description: "Working on developing the company's e-commerce solutions. Initially launched six concept sites on Quickbutik, then transitioned to WordPress WooCommerce for greater flexibility. Focus on frontend (HTML, CSS, JavaScript), simple backend, multisite configuration, workflow automation via scripts and tools, and SEO optimization.",
-    technologies: ["HTML", "CSS", "JavaScript", "WooCommerce", "WordPress", "SEO"],
+    description: "Working on development and improvement of the company’s e-commerce solutions using WordPress WooCommerce. Focus on frontend and backend work, multisite environments, workflow automation, SEO optimization and digital presence.",
+    technologies: ["HTML", "CSS", "JavaScript", "WooCommerce", "WordPress", "SEO", "Digital Marketing", "Automation", "UX/UI"],
     color: "primary"
   },
   {
@@ -16,8 +16,8 @@ const experiences = [
     location: "Gothenburg",
     period: "Dec 2024 - Jun 2025",
     description: "Development and maintenance of a club shop platform for associations and a matching tool that connects users with clubs. Focus on scalable and user-friendly solutions. Responsible for backend development, implementing new features and improving existing functionality.",
-    technologies: [".NET Core", "Razor", "nopCommerce", "C#"],
-    color: "accent"
+    technologies: [".NET Core", "Razor", "nopCommerce", "C#", "SQL", "JavaScript", "HTML", "CSS"],
+    color: ""
   },
   {
     title: "Fullstack Developer (Internship)",
@@ -25,14 +25,14 @@ const experiences = [
     location: "Borås",
     period: "Nov 2023 - May 2024",
     description: "Created a Nuxt.js webapp for administrators to manage customer reviews. Participated in developing the company's new footer and made changes to the XML map and CMS system. Fetched data via GraphQL. Worked with Azure DevOps and Git for version control.",
-    technologies: ["Nuxt.js", "Vue.js", "GraphQL", "Azure DevOps", "Git", "SCRUM"],
-    color: "coral"
+    technologies: ["C#", "Nuxt.js", "Vue.js", "TypeScript", "GraphQL", "Azure DevOps", "Git", "SCRUM", "CMS"],
+    color: ""
   }
 ];
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 bg-secondary/30">
+    <section id="experience" className="py-20">
       <div className="container mx-auto px-6">
         <motion.div 
           className="mb-12"
@@ -69,7 +69,7 @@ const Experience = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 />
-                <h3 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-semibold text-foreground mb-1">
                   {exp.title}
                 </h3>
                 <p className={`text-${exp.color} mb-4 font-medium`}>{exp.company}</p>
@@ -82,8 +82,7 @@ const Experience = () => {
                   {exp.technologies.map((tech, techIndex) => (
                     <motion.span 
                       key={techIndex}
-                      className="text-xs px-2 py-1 rounded-md bg-background text-muted-foreground"
-                      whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--primary) / 0.1)" }}
+                      className="text-xs px-2 py-1 rounded-md rounded-full border border-border text-muted-foreground"
                     >
                       {tech}
                     </motion.span>
