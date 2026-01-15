@@ -16,34 +16,27 @@ const Contact = () => {
             feel free to reach out!
           </p>
           
-          <div className="grid sm:grid-cols-3 gap-6 mb-12">
+          <div className="flex flex-wrap justify-center gap-8 mb-12 text-sm">
             <a 
               href="mailto:Lirije11@hotmail.com"
-              className="p-6 bg-card rounded-2xl border border-border hover:border-primary/30 transition-colors group"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
             >
-              <Mail className="w-6 h-6 text-primary mx-auto mb-3" />
-              <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                Email
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">Lirije11@hotmail.com</p>
+              <Mail className="w-4 h-4" />
+              Lirije11@hotmail.com
             </a>
             
             <a 
               href="tel:+46700999544"
-              className="p-6 bg-card rounded-2xl border border-border hover:border-primary/30 transition-colors group"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
             >
-              <Phone className="w-6 h-6 text-primary mx-auto mb-3" />
-              <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                Phone
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">+46 70 099 95 44</p>
+              <Phone className="w-4 h-4" />
+              +46 70 099 95 44
             </a>
             
-            <div className="p-6 bg-card rounded-2xl border border-border">
-              <MapPin className="w-6 h-6 text-primary mx-auto mb-3" />
-              <p className="text-sm font-medium text-foreground">Location</p>
-              <p className="text-xs text-muted-foreground mt-1">Skene, Sweden</p>
-            </div>
+            <span className="flex items-center gap-2 text-muted-foreground">
+              <MapPin className="w-4 h-4" />
+              Skene, Sweden
+            </span>
           </div>
           
           <div className="flex justify-center gap-4">
