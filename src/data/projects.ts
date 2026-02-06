@@ -88,4 +88,30 @@ export const projects: Project[] = [
     ],
     featured: false
   },
+  {
+    id: "internal-review-management-app",
+    title: "Internal Review Management App",
+    shortDescription: "Internal review management application built for RevolutionRace, focusing on moderation workflows and search.",
+    overview: "An internal tool built to help editors and content managers handle customer reviews efficiently. The application allows users to search, filter, publish and unpublish reviews, providing better control over review visibility and moderation.",
+    image: "/adminreviews.png",
+    type: "Web",
+    status: "Internal",
+    techStack: ["Nuxt", "Vue", "GraphQL", "TypeScript", "Azure DevOps"],
+    role: "Fullstack Developer",
+    responsibilities: [
+      "Built internal tooling for managing and moderating reviews",
+      "Implemented publishing and unpublishing workflows",
+      "Developed search and filtering functionality for large datasets",
+      "Integrated frontend with a GraphQL API"
+    ],
+    architecture: "Internal web application built with Nuxt, consuming data via a GraphQL API. Focus on editor workflows and efficient data querying.",
+    challenges: [
+      "Designing efficient search and filtering for review data",
+      "Creating clear moderation workflows for editors",
+      "Working within an existing internal system and API structure"
+    ],
+    links: [
+    ],
+    featured: true
+  }
 ];
