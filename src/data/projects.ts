@@ -88,31 +88,4 @@ export const projects: Project[] = [
     ],
     featured: false
   },
-  {
-    id: "portfolio-site",
-    title: "Personal Portfolio",
-    shortDescription: "Modern, animated portfolio built with React and Framer Motion showcasing my work and skills.",
-    overview: "Designed and built my personal portfolio from scratch, focusing on clean aesthetics, smooth animations, and excellent performance. Built as a single-page application with a focus on accessibility.",
-    image: "/placeholder.svg",
-    type: "Web",
-    status: "Live",
-    techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    role: "Designer & Developer",
-    responsibilities: [
-      "Designed the visual identity and UX",
-      "Implemented responsive layouts",
-      "Added micro-interactions and animations",
-      "Optimized for performance and SEO"
-    ],
-    architecture: "React SPA with Vite, deployed on Lovable.",
-    challenges: [
-      "Balancing visual flair with performance",
-      "Creating a cohesive design system",
-      "Making animations feel natural and purposeful"
-    ],
-    links: [
-      { label: "GitHub", url: "https://github.com", type: "github" }
-    ],
-    featured: true
-  }
 ];
