@@ -60,8 +60,8 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
       </motion.div>
 
       {/* Content */}
-      <div className="space-y-3">
-        <h3 className="font-display text-xl text-foreground group-hover:text-primary transition-colors">
+      <div className="space-y-2 sm:space-y-3">
+        <h3 className="font-display text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">
           {project.title}
         </h3>
         
@@ -87,12 +87,12 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2" onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-wrap gap-2 pt-2" onClick={(e) => e.stopPropagation()}>
           {demoLink && (
             <Button
               variant="default"
               size="sm"
-              className="text-xs"
+              className="text-xs h-8"
               asChild
             >
               <a href={demoLink.url} target="_blank" rel="noopener noreferrer">
@@ -106,7 +106,7 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
               key={i}
               variant="outline"
               size="sm"
-              className="text-xs"
+              className="text-xs h-8"
               asChild
             >
               <a href={link.url} target="_blank" rel="noopener noreferrer">

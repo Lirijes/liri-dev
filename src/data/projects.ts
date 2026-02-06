@@ -7,6 +7,7 @@ export const projects: Project[] = [
     shortDescription: "Web application for managing inspections, objects, and cases with a scalable backend architecture.",
     overview: "A web-based inspection management system designed to handle objects, inspections, and case workflows. The project started as a rapid prototype and evolved into a more structured solution with a separate backend for improved control and scalability.",
     image: "/inspectoboard.png",
+    images: ["/inspectoboard.png"],
     type: "App",
     status: "Case",
     techStack: ["TypeScript", "React", ".NET", "REST API", "PostgreSQL (Supabase)", "Vercel"],
@@ -36,6 +37,7 @@ export const projects: Project[] = [
     shortDescription: "Location-based web app for discovering and saving nearby date spots, with authentication and user favorites.",
     overview: "A location-based application built to help users discover date spots near their current location. Users can create accounts, log in, and save places as favorites. The project was generated using Lovable with a custom Supabase setup, where core functionality such as authentication, data handling, and user logic was implemented manually.",
     image: "/datespot.png",
+    images: ["/datespot.png"],
     type: "App",
     status: "Case",
     techStack: ["TypeScript", "React", "Supabase", "Geolocation API", "Vercel"],
@@ -65,6 +67,7 @@ export const projects: Project[] = [
     shortDescription: "ASP.NET-based tool for generating XML sitemaps for websites.",
     overview: "A backend-focused utility built in ASP.NET to generate XML sitemaps based on website structure. The project was created to explore backend logic, data processing, and file generation in a clean and maintainable way.",
     image: "/sitemapp.png",
+    images: ["/sitemapp.png"],
     type: "Backend",
     status: "Live",
     techStack: [".NET", "C#", "Razor", "ASP.NET MVC", "XML", "MVVM", "Vercel"],
@@ -85,4 +88,31 @@ export const projects: Project[] = [
     ],
     featured: false
   },
+  {
+    id: "portfolio-site",
+    title: "Personal Portfolio",
+    shortDescription: "Modern, animated portfolio built with React and Framer Motion showcasing my work and skills.",
+    overview: "Designed and built my personal portfolio from scratch, focusing on clean aesthetics, smooth animations, and excellent performance. Built as a single-page application with a focus on accessibility.",
+    image: "/placeholder.svg",
+    type: "Web",
+    status: "Live",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    role: "Designer & Developer",
+    responsibilities: [
+      "Designed the visual identity and UX",
+      "Implemented responsive layouts",
+      "Added micro-interactions and animations",
+      "Optimized for performance and SEO"
+    ],
+    architecture: "React SPA with Vite, deployed on Lovable.",
+    challenges: [
+      "Balancing visual flair with performance",
+      "Creating a cohesive design system",
+      "Making animations feel natural and purposeful"
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com", type: "github" }
+    ],
+    featured: true
+  }
 ];
