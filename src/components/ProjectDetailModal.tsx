@@ -50,24 +50,24 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl h-[85vh] flex flex-col p-0 gap-0">
-        <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
-          <div className="flex items-center gap-2 mb-2">
+      <DialogContent className="w-[95vw] max-w-2xl h-[90vh] sm:h-[85vh] flex flex-col p-0 gap-0">
+        <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 shrink-0">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <Badge variant={statusVariant[project.status]}>
               {project.status}
             </Badge>
             <Badge variant="outline">{project.type}</Badge>
           </div>
-          <DialogTitle className="font-display text-2xl">
+          <DialogTitle className="font-display text-xl sm:text-2xl">
             {project.title}
           </DialogTitle>
-          <DialogDescription className="text-base">
+          <DialogDescription className="text-sm sm:text-base">
             {project.role}
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 px-6">
-          <div className="space-y-6 pb-6">
+        <ScrollArea className="flex-1 px-4 sm:px-6">
+          <div className="space-y-4 sm:space-y-6 pb-6">
             {/* Project Image Carousel */}
             <ProjectImageCarousel images={projectImages} title={project.title} />
 
