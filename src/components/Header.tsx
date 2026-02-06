@@ -28,6 +28,7 @@ const Header = () => {
         
         <nav className="hidden md:flex items-center gap-8">
           <HeaderLink href="#about">About</HeaderLink>
+          <HeaderLink href="#projects">Projects</HeaderLink>
           <HeaderLink href="#experience">Experience</HeaderLink>
           <HeaderLink href="#skills">Skills</HeaderLink>
           <HeaderLink href="#education">Education</HeaderLink>
