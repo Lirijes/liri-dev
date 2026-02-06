@@ -19,7 +19,7 @@ const statusVariant = {
 
 const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
   const demoLink = project.links.find((l) => l.type === "demo");
-  const githubLink = project.links.find((l) => l.type === "github");
+  const githubLinks = project.links.filter((l) => l.type === "github");
 
   return (
     <motion.article
@@ -90,30 +90,31 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
         <div className="flex gap-2 pt-2" onClick={(e) => e.stopPropagation()}>
           {demoLink && (
             <Button
-              variant="outline"
+              variant="default"
               size="sm"
               className="text-xs"
               asChild
             >
               <a href={demoLink.url} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-3 h-3 mr-1" />
-                Live Demo
+                Visit Site
               </a>
             </Button>
           )}
-          {githubLink && (
+          {githubLinks.map((link, i) => (
             <Button
-              variant="ghost"
+              key={i}
+              variant="outline"
               size="sm"
               className="text-xs"
               asChild
             >
-              <a href={githubLink.url} target="_blank" rel="noopener noreferrer">
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
                 <Github className="w-3 h-3 mr-1" />
-                GitHub
+                {link.label ?? "GitHub"}
               </a>
             </Button>
-          )}
+          ))}
         </div>
       </div>
     </motion.article>
