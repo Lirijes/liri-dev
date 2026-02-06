@@ -12,7 +12,8 @@ export interface Project {
   title: string;
   shortDescription: string; // 1-2 sentences, max ~25 words
   overview: string; // Longer description for detail view
-  image: string;
+  image: string; // Primary image for card
+  images?: string[]; // Multiple images for detail carousel
   type: ProjectType;
   status: ProjectStatus;
   techStack: string[];
