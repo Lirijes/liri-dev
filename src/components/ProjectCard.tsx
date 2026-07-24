@@ -22,7 +22,9 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
   const demoLink = project.links.find((l) => l.type === "demo");
   const githubLinks = project.links.filter((l) => l.type === "github");
   const featured = Boolean(project.featured);
-  const techLimit = featured ? 6 : 4;
+  // Cards show at most 5 badges — an optional cardTech overrides which ones.
+  const cardTech = (project.cardTech ?? project.techStack).slice(0, 5);
+  const extraTech = Math.max(0, project.techStack.length - cardTech.length);
 
   return (
     <motion.article
@@ -106,7 +108,7 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-1.5">
-            {project.techStack.slice(0, techLimit).map((tech) => (
+            {cardTech.map((tech) => (
               <span
                 key={tech}
                 className="text-xs px-2 py-1 bg-secondary/70 border border-border text-secondary-foreground rounded-md"
@@ -114,9 +116,9 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
                 {tech}
               </span>
             ))}
-            {project.techStack.length > techLimit && (
+            {extraTech > 0 && (
               <span className="text-xs px-2 py-1 text-muted-foreground">
-                +{project.techStack.length - techLimit}
+                +{extraTech}
               </span>
             )}
           </div>

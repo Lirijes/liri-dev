@@ -26,14 +26,14 @@ export const projects: Project[] = [
       "Designed the PostgreSQL database structure",
       "Implemented authentication and family-based access",
       "Built authorization and data isolation using Row Level Security (RLS)",
-      "Implemented server-side logic and database/RPC functions",
+      "Implemented server-side logic and PostgreSQL RPC functions",
       "Built activities, categories and shared bucket lists",
       "Built an optional points and rewards system",
       "Implemented family onboarding and a child mode",
       "Deployed the application"
     ],
     architecture:
-      "Built with React and TypeScript on TanStack Start, with routing handled by TanStack Router. Supabase provides authentication, the PostgreSQL database and Row Level Security (RLS) policies that isolate data per family. Sensitive operations run server-side through database/RPC functions rather than on the client. Deployed on Vercel.",
+      "Built with React and TypeScript on TanStack Start, with routing handled by TanStack Router. Supabase provides authentication, the PostgreSQL database and Row Level Security (RLS) policies that isolate data per family. Sensitive operations run server-side through PostgreSQL RPC functions rather than on the client. Deployed on Vercel.",
     challenges: [
       "Designing access around families rather than individual users — sharing data within a family while keeping it isolated from other families, using the data model together with Supabase authentication and RLS policies.",
       "Keeping sensitive operations server-side rather than relying only on the client, combining client- and server-side functionality."
@@ -54,6 +54,7 @@ export const projects: Project[] = [
     type: "App",
     status: "Case",
     techStack: ["TypeScript", "React", "C#", "ASP.NET Core Web API", "Entity Framework Core", "PostgreSQL (Supabase)", "Swagger/OpenAPI", "Vercel"],
+    cardTech: ["TypeScript", "React", "C#", "ASP.NET Core", "PostgreSQL"],
     role: "Fullstack Developer",
     responsibilities: [
       "Built the initial application using React and Supabase",
@@ -77,7 +78,7 @@ export const projects: Project[] = [
   },
   {
     id: "internal-review-management-app",
-    title: "Internal Review Management App",
+    title: "Review Management Application",
     shortDescription: "Internal review management application built for RevolutionRace, focusing on moderation workflows and search.",
     overview: "An internal tool built to help editors and content managers handle customer reviews efficiently. The application allows users to search, filter, publish and unpublish reviews, providing better control over review visibility and moderation.",
     image: "/adminreviews.png",

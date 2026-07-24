@@ -11,27 +11,17 @@ const skillCategories = [
   },
   {
     title: "Frontend",
-    skills: ["JavaScript", "TypeScript", "React", "Vue", "Astro", "HTML/CSS"],
+    skills: ["TypeScript", "JavaScript", "React", "Vue", "Astro"],
     dotColor: "bg-accent",
   },
   {
-    title: "Database & API",
+    title: "Data & APIs",
     skills: ["SQL", "PostgreSQL", "GraphQL", "REST API"],
     dotColor: "bg-primary",
   },
   {
-    title: "CMS & E-commerce",
-    skills: ["DatoCMS", "Umbraco", "nopCommerce", "Storyblok"],
-    dotColor: "bg-accent",
-  },
-  {
-    title: "Tools",
-    skills: ["Git", "Azure DevOps", "Docker", "Automation"],
-    dotColor: "bg-primary",
-  },
-  {
-    title: "AI-assisted Development",
-    skills: ["Claude", "GitHub Copilot"],
+    title: "Platforms & Tools",
+    skills: ["Supabase", "DatoCMS", "Git", "Azure DevOps"],
     dotColor: "bg-accent",
   },
 ];
@@ -53,7 +43,7 @@ const Skills = () => {
           <h2 className="font-display text-4xl text-foreground">Skills</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-10">
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}

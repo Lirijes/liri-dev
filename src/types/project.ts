@@ -16,7 +16,8 @@ export interface Project {
   images?: string[]; // Multiple images for detail carousel
   type: ProjectType;
   status: ProjectStatus;
-  techStack: string[];
+  techStack: string[]; // Full stack shown in the detail view
+  cardTech?: string[]; // Optional override for the badges shown on the card
   role: string;
   responsibilities: string[];
   architecture?: string;
