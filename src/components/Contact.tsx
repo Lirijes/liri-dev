@@ -67,7 +67,7 @@ const Contact = () => {
             href="https://github.com/lirijes" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:textt transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -77,7 +77,7 @@ const Contact = () => {
             href="https://linkedin.com/in/lirijes" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             whileHover={{ scale: 1.1, rotate: -5 }}
             whileTap={{ scale: 0.95 }}
           >

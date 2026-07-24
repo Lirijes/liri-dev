@@ -1,4 +1,4 @@
-import { ExternalLink, Github, GitBranch } from "lucide-react";
+import { ExternalLink, Github, GitBranch, Check } from "lucide-react";
 import { Project } from "@/types/project";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,138 +38,143 @@ const getLinkIcon = (type: string) => {
   }
 };
 
+// Small consistent section label used throughout the detail view.
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <h4 className="text-[0.7rem] font-medium uppercase tracking-wider text-primary mb-2">
+    {children}
+  </h4>
+);
+
 const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProps) => {
   if (!project) return null;
 
-  const frontendLink = project.links.find((l) => l.type === "frontend");
-  const backendLink = project.links.find((l) => l.type === "backend");
-  const hasRepoLinks = frontendLink || backendLink;
-  
   // Use images array if available, otherwise fall back to single image
   const projectImages = project.images?.length ? project.images : [project.image];
 
+  const facts = [
+    { label: "Role", value: project.role },
+    { label: "Type", value: project.type },
+    { label: "Status", value: project.status },
+  ];
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[95vw] max-w-2xl h-[90vh] sm:h-[85vh] flex flex-col p-0 gap-0">
-        <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 shrink-0">
-          <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <Badge variant={statusVariant[project.status]}>
-              {project.status}
-            </Badge>
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] sm:h-[86vh] flex flex-col p-0 gap-0">
+        <DialogHeader className="px-4 sm:px-6 pt-5 sm:pt-6 pb-4 shrink-0 border-b border-border text-left space-y-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Badge variant={statusVariant[project.status]}>{project.status}</Badge>
             <Badge variant="outline">{project.type}</Badge>
           </div>
-          <DialogTitle className="font-display text-xl sm:text-2xl">
+          <DialogTitle className="font-display text-2xl sm:text-3xl font-normal">
             {project.title}
           </DialogTitle>
           <DialogDescription className="text-sm sm:text-base">
-            {project.role}
+            {project.shortDescription}
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 px-4 sm:px-6">
-          <div className="space-y-4 sm:space-y-6 pb-6">
-            {/* Project Image Carousel */}
-            <ProjectImageCarousel images={projectImages} title={project.title} />
+        <ScrollArea className="flex-1">
+          <div className="grid gap-6 p-4 sm:p-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+            {/* Left column — at a glance */}
+            <div className="min-w-0 space-y-5">
+              <ProjectImageCarousel images={projectImages} title={project.title} />
 
-            {/* Overview */}
-            <section className="space-y-2">
-              <h4 className="font-semibold text-foreground">Overview</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {project.overview}
-              </p>
-            </section>
-
-            {/* Tech Stack */}
-            <section className="space-y-2">
-              <h4 className="font-semibold text-foreground">Tech Stack</h4>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-sm px-3 py-1 bg-secondary text-secondary-foreground rounded-md"
-                  >
-                    {tech}
-                  </span>
+              {/* Facts */}
+              <dl className="rounded-lg border border-border bg-secondary/40 divide-y divide-border overflow-hidden">
+                {facts.map((f) => (
+                  <div key={f.label} className="flex items-center justify-between gap-3 px-4 py-2.5">
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {f.label}
+                    </dt>
+                    <dd className="text-sm font-medium text-foreground text-right">{f.value}</dd>
+                  </div>
                 ))}
-              </div>
-              {project.architecture && (
-                <p className="text-muted-foreground text-sm mt-2">
-                  {project.architecture}
-                </p>
+              </dl>
+
+              {/* Links */}
+              {project.links.length > 0 && (
+                <div className="space-y-2">
+                  <SectionLabel>Links</SectionLabel>
+                  <div className="flex flex-col gap-2">
+                    {project.links.map((link, i) => (
+                      <Button
+                        key={i}
+                        variant={link.type === "demo" ? "default" : "outline"}
+                        size="sm"
+                        className="justify-start"
+                        asChild
+                      >
+                        <a href={link.url} target="_blank" rel="noopener noreferrer">
+                          {getLinkIcon(link.type)}
+                          <span className="ml-2">{link.label}</span>
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
               )}
-            </section>
+            </div>
 
-            {/* Responsibilities */}
-            <section className="space-y-2">
-              <h4 className="font-semibold text-foreground">My Responsibilities</h4>
-              <ul className="space-y-1">
-                {project.responsibilities.map((resp, i) => (
-                  <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                    {resp}
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {/* Right column — the story */}
+            <div className="min-w-0 space-y-6">
+              {/* Overview */}
+              <section>
+                <SectionLabel>Overview</SectionLabel>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {project.overview}
+                </p>
+              </section>
 
-            {/* Challenges */}
-            {project.challenges.length > 0 && (
-              <section className="space-y-2">
-                <h4 className="font-semibold text-foreground">Challenges & Decisions</h4>
-                <ul className="space-y-1">
-                  {project.challenges.map((challenge, i) => (
-                    <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                      {challenge}
+              {/* Tech Stack */}
+              <section>
+                <SectionLabel>Tech Stack</SectionLabel>
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-sm px-3 py-1 bg-secondary/70 border border-border text-secondary-foreground rounded-md"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                {project.architecture && (
+                  <p className="text-muted-foreground text-sm leading-relaxed mt-3">
+                    {project.architecture}
+                  </p>
+                )}
+              </section>
+
+              {/* Responsibilities */}
+              <section>
+                <SectionLabel>My Responsibilities</SectionLabel>
+                <ul className="space-y-2">
+                  {project.responsibilities.map((resp, i) => (
+                    <li key={i} className="text-muted-foreground text-sm flex items-start gap-2.5">
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Check className="h-3 w-3" />
+                      </span>
+                      {resp}
                     </li>
                   ))}
                 </ul>
               </section>
-            )}
 
-            {/* Links */}
-            {project.links.length > 0 && (
-              <section className="space-y-3 pt-4 border-t border-border">
-                <h4 className="font-semibold text-foreground">Links</h4>
-                
-                <div className="flex flex-wrap gap-2">
-                  {project.links.map((link, i) => (
-                    <Button
-                      key={i}
-                      variant={link.type === "demo" ? "default" : "outline"}
-                      size="sm"
-                      asChild
-                    >
-                      <a href={link.url} target="_blank" rel="noopener noreferrer">
-                        {getLinkIcon(link.type)}
-                        <span className="ml-2">{link.label}</span>
-                      </a>
-                    </Button>
-                  ))}
-                </div>
-
-                {hasRepoLinks && (
-                  <div className="flex gap-2 pt-2">
-                    {frontendLink && (
-                      <Button variant="ghost" size="sm" asChild>
-                        <a href={frontendLink.url} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-4 h-4 mr-2" />
-                          Frontend Repo
-                        </a>
-                      </Button>
-                    )}
-                    {backendLink && (
-                      <Button variant="ghost" size="sm" asChild>
-                        <a href={backendLink.url} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-4 h-4 mr-2" />
-                          Backend Repo
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </section>
-            )}
+              {/* Challenges */}
+              {project.challenges.length > 0 && (
+                <section>
+                  <SectionLabel>Challenges &amp; Decisions</SectionLabel>
+                  <ul className="space-y-2">
+                    {project.challenges.map((challenge, i) => (
+                      <li key={i} className="text-muted-foreground text-sm flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                        {challenge}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
           </div>
         </ScrollArea>
       </DialogContent>

@@ -67,7 +67,7 @@ const Education = () => {
                   </span>
                 )}
               </div>
-              <p className="text text-sm mb-1 font-medium">{edu.school}</p>
+              <p className="text-foreground text-sm mb-1 font-medium">{edu.school}</p>
               <p className="text-muted-foreground text-sm mb-2">
                 {edu.period} {edu.type && `• ${edu.type}`}
               </p>

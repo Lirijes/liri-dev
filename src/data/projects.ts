@@ -5,20 +5,21 @@ export const projects: Project[] = [
     id: "inspecto-app",
     title: "Inspecto Management Application",
     shortDescription: "Web application for managing inspections, objects, and cases with a scalable backend architecture.",
-    overview: "A web-based inspection management system designed to handle objects, inspections, and case workflows. The project started as a rapid prototype and evolved into a more structured solution with a separate backend for improved control and scalability.",
+    overview: "A dashboard application for managing facilities, cases and inspections, with authentication and full CRUD functionality. The project started as a rapid prototype and evolved into a more structured solution with a separate C#/.NET Web API running against the same PostgreSQL database for improved control and scalability.",
     image: "/inspectoboard.png",
     images: ["/inspectoboard.png"],
     type: "App",
     status: "Case",
-    techStack: ["TypeScript", "React", ".NET", "REST API", "PostgreSQL (Supabase)", "Vercel"],
+    techStack: ["TypeScript", "React", "C#", "ASP.NET Core Web API", "Entity Framework Core", "PostgreSQL (Supabase)", "Swagger/OpenAPI", "Vercel"],
     role: "Fullstack Developer",
     responsibilities: [
-      "Built the initial application using Lovable and Supabase",
-      "Replaced direct database access with a custom .NET REST API",
-      "Designed REST endpoints and data models",
-      "Integrated frontend with backend services"
+      "Built the initial application using React and Supabase",
+      "Developed a separate C#/.NET Web API against the same PostgreSQL database",
+      "Modelled data and access with Entity Framework Core",
+      "Designed REST endpoints and documented them with Swagger/OpenAPI",
+      "Integrated the frontend with the backend services"
     ],
-    architecture: "Frontend built with React and Vite communicating with a .NET REST API. The backend connects to a PostgreSQL database provided by Supabase.",
+    architecture: "React frontend (Vite) with authentication and CRUD via Supabase, plus a separate ASP.NET Core Web API using Entity Framework Core against the same PostgreSQL database, documented with Swagger/OpenAPI.",
     challenges: [
       "Migrating from direct database access to an API-based architecture",
       "Defining clear boundaries between frontend and backend responsibilities",
@@ -59,27 +60,28 @@ export const projects: Project[] = [
       { label: "Live Demo", url: "https://datespot.vercel.app/", type: "demo" },
       { label: "GitHub", url: "https://github.com/Lirijes/lovable-date", type: "github" }
     ],
-    featured: true
+    featured: false
   },
   {
     id: "sitemap-generator",
     title: "Sitemap Generator",
     shortDescription: "ASP.NET-based tool for generating XML sitemaps for websites.",
-    overview: "A backend-focused utility built in ASP.NET to generate XML sitemaps based on website structure. The project was created to explore backend logic, data processing, and file generation in a clean and maintainable way.",
+    overview: "A standalone tool that, given a URL, crawls a website and generates either an XML sitemap or a structured HTML data extraction, with the option to download the result. Built and deployed in its own Docker container.",
     image: "/sitemapp.png",
     images: ["/sitemapp.png"],
     type: "Backend",
     status: "Live",
-    techStack: [".NET", "C#", "Razor", "ASP.NET MVC", "XML", "MVVM", "Vercel"],
+    techStack: ["C#", ".NET", "ASP.NET Core MVC", "HtmlAgilityPack", "Docker", "XML"],
     role: "Backend Developer",
     responsibilities: [
-      "Implemented sitemap generation logic",
-      "Designed clean backend structure",
-      "Handled XML output and validation"
+      "Implemented URL crawling and sitemap generation logic",
+      "Built structured HTML data extraction using HtmlAgilityPack",
+      "Handled XML output, validation and downloadable results",
+      "Containerised and deployed the tool with Docker"
     ],
-    architecture: "Server-side ASP.NET application focused on backend logic and file generation.",
+    architecture: "Server-side ASP.NET Core MVC application that crawls a target URL with HtmlAgilityPack and generates downloadable XML/HTML output, packaged and deployed as a Docker container.",
     challenges: [
-      "Designing a flexible sitemap structure",
+      "Designing a flexible crawling and sitemap structure",
       "Ensuring valid and standards-compliant XML output"
     ],
     links: [
@@ -94,6 +96,7 @@ export const projects: Project[] = [
     shortDescription: "Internal review management application built for RevolutionRace, focusing on moderation workflows and search.",
     overview: "An internal tool built to help editors and content managers handle customer reviews efficiently. The application allows users to search, filter, publish and unpublish reviews, providing better control over review visibility and moderation.",
     image: "/adminreviews.png",
+    images: ["/adminreviews.png"],
     type: "Web",
     status: "Internal",
     techStack: ["Nuxt", "Vue", "GraphQL", "TypeScript", "Azure DevOps"],
