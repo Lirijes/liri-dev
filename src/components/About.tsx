@@ -13,13 +13,12 @@ const About = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-muted relative group">
-              <img 
-                src={profileImage} 
-                alt="Lirije Shabani" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            <div className="rounded-2xl overflow-hidden bg-muted">
+              <img
+                src={profileImage}
+                alt="Lirije Shabani"
+                className="w-full h-auto block"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </motion.div>
           
