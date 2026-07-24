@@ -41,7 +41,7 @@ const ProjectImageCarousel = ({ images, title }: ProjectImageCarouselProps) => {
             <img
               src={images[currentIndex]}
               alt={`${title} - Image ${currentIndex + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </motion.button>
         </AnimatePresence>

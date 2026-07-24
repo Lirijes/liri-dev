@@ -2,6 +2,49 @@ import { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
+    id: "minsommar",
+    title: "MinSommar",
+    shortDescription:
+      "A fullstack web application for families that makes it easier to find, plan and keep track of summer activities together.",
+    overview:
+      "MinSommar is a fullstack application I developed from idea to working product. It helps families collect activities and things they want to do during the summer in one place, with shared bucket lists and an optional points and rewards system for children. I built the application end-to-end, including UX, frontend, backend logic, database structure, authentication and authorization.",
+    image: "/minsommar.png",
+    images: [
+      "/minsommar.png",
+      "/minsommar-2.png",
+      "/minsommar-3.png",
+      "/minsommar-4.png",
+      "/minsommar-5.png"
+    ],
+    type: "Fullstack",
+    status: "Live",
+    techStack: ["TypeScript", "React", "TanStack Start", "Supabase", "PostgreSQL"],
+    role: "Fullstack Developer",
+    responsibilities: [
+      "Designed and developed the application from idea to working product",
+      "Built the frontend and application flows in React and TypeScript",
+      "Designed the PostgreSQL database structure",
+      "Implemented authentication and family-based access",
+      "Built authorization and data isolation using Row Level Security (RLS)",
+      "Implemented server-side logic and database/RPC functions",
+      "Built activities, categories and shared bucket lists",
+      "Built an optional points and rewards system",
+      "Implemented family onboarding and a child mode",
+      "Deployed the application"
+    ],
+    architecture:
+      "Built with React and TypeScript on TanStack Start, with routing handled by TanStack Router. Supabase provides authentication, the PostgreSQL database and Row Level Security (RLS) policies that isolate data per family. Sensitive operations run server-side through database/RPC functions rather than on the client. Deployed on Vercel.",
+    challenges: [
+      "Designing access around families rather than individual users — sharing data within a family while keeping it isolated from other families, using the data model together with Supabase authentication and RLS policies.",
+      "Keeping sensitive operations server-side rather than relying only on the client, combining client- and server-side functionality."
+    ],
+    links: [
+      { label: "Visit Site", url: "https://minsommar.se/", type: "demo" },
+      { label: "GitHub", url: "https://github.com/Lirijes/minsommar", type: "github" }
+    ],
+    featured: true
+  },
+  {
     id: "inspecto-app",
     title: "Inspecto Management Application",
     shortDescription: "Web application for managing inspections, objects, and cases with a scalable backend architecture.",
@@ -30,7 +73,34 @@ export const projects: Project[] = [
       { label: "GitHub – Frontend", url: "https://github.com/Lirijes/inspecto", type: "github" },
       { label: "GitHub – Backend", url: "https://github.com/Lirijes/inspecto-api", type: "github" }
     ],
-    featured: true
+    featured: false
+  },
+  {
+    id: "internal-review-management-app",
+    title: "Internal Review Management App",
+    shortDescription: "Internal review management application built for RevolutionRace, focusing on moderation workflows and search.",
+    overview: "An internal tool built to help editors and content managers handle customer reviews efficiently. The application allows users to search, filter, publish and unpublish reviews, providing better control over review visibility and moderation.",
+    image: "/adminreviews.png",
+    images: ["/adminreviews.png"],
+    type: "Web",
+    status: "Internal",
+    techStack: ["Nuxt", "Vue", "GraphQL", "TypeScript", "Azure DevOps"],
+    role: "Fullstack Developer",
+    responsibilities: [
+      "Built internal tooling for managing and moderating reviews",
+      "Implemented publishing and unpublishing workflows",
+      "Developed search and filtering functionality for large datasets",
+      "Integrated frontend with a GraphQL API"
+    ],
+    architecture: "Internal web application built with Nuxt, consuming data via a GraphQL API. Focus on editor workflows and efficient data querying.",
+    challenges: [
+      "Designing efficient search and filtering for review data",
+      "Creating clear moderation workflows for editors",
+      "Working within an existing internal system and API structure"
+    ],
+    links: [
+    ],
+    featured: false
   },
   {
     id: "datespot-app",
@@ -89,32 +159,5 @@ export const projects: Project[] = [
       { label: "GitHub", url: "https://github.com/Lirijes/SitemapGenerator", type: "github" }
     ],
     featured: false
-  },
-  {
-    id: "internal-review-management-app",
-    title: "Internal Review Management App",
-    shortDescription: "Internal review management application built for RevolutionRace, focusing on moderation workflows and search.",
-    overview: "An internal tool built to help editors and content managers handle customer reviews efficiently. The application allows users to search, filter, publish and unpublish reviews, providing better control over review visibility and moderation.",
-    image: "/adminreviews.png",
-    images: ["/adminreviews.png"],
-    type: "Web",
-    status: "Internal",
-    techStack: ["Nuxt", "Vue", "GraphQL", "TypeScript", "Azure DevOps"],
-    role: "Fullstack Developer",
-    responsibilities: [
-      "Built internal tooling for managing and moderating reviews",
-      "Implemented publishing and unpublishing workflows",
-      "Developed search and filtering functionality for large datasets",
-      "Integrated frontend with a GraphQL API"
-    ],
-    architecture: "Internal web application built with Nuxt, consuming data via a GraphQL API. Focus on editor workflows and efficient data querying.",
-    challenges: [
-      "Designing efficient search and filtering for review data",
-      "Creating clear moderation workflows for editors",
-      "Working within an existing internal system and API structure"
-    ],
-    links: [
-    ],
-    featured: true
   }
 ];
