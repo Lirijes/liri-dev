@@ -1,6 +1,8 @@
 import { useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ProjectDiagram } from "@/components/diagrams";
+import { useT } from "@/i18n/context";
+import { paragraphs } from "@/lib/text";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/project";
 
@@ -9,6 +11,7 @@ import type { Project } from "@/types/project";
  * one reveals a short overview, technical highlights, links and a screenshot.
  */
 const Row = ({ project, number, defaultOpen }: { project: Project; number: string; defaultOpen: boolean }) => {
+  const t = useT();
   const [open, setOpen] = useState(defaultOpen);
   const reduce = useReducedMotion();
   const panelId = useId();
@@ -28,7 +31,7 @@ const Row = ({ project, number, defaultOpen }: { project: Project; number: strin
           <span className="type-row transition-colors group-hover:text-primary">{project.title}</span>
           <span className="hidden text-[0.9375rem] leading-relaxed text-ink-soft lg:block">{project.summary}</span>
           <span className="col-start-2 text-[0.8125rem] text-muted-foreground lg:col-start-auto">
-            {project.context ?? "Personal"}
+            {project.context ?? t.projects.personal}
             <span className="lg:hidden"> · {project.cardTech.slice(0, 2).join(", ")}</span>
           </span>
           <span className="hidden text-[0.8125rem] text-muted-foreground lg:block">
@@ -48,7 +51,7 @@ const Row = ({ project, number, defaultOpen }: { project: Project; number: strin
           <motion.div
             id={panelId}
             role="region"
-            aria-label={`${project.title} details`}
+            aria-label={t.projects.detailsLabel(project.title)}
             initial={reduce ? false : { height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
@@ -57,10 +60,14 @@ const Row = ({ project, number, defaultOpen }: { project: Project; number: strin
           >
             <div className="grid gap-10 pb-12 pt-2 md:grid-cols-[3.5rem_repeat(12,minmax(0,1fr))] md:gap-x-6">
               <div className="space-y-6 md:col-span-6 md:col-start-2 lg:col-span-5 lg:col-start-2">
-                <p className="leading-relaxed text-ink-soft">{project.overview}</p>
+                <div className="space-y-4 leading-relaxed text-ink-soft">
+                  {paragraphs(project.overview).map((text) => (
+                    <p key={text}>{text}</p>
+                  ))}
+                </div>
                 {project.highlights && (
                   <div>
-                    <p className="label text-muted-foreground">Technical highlights</p>
+                    <p className="label text-muted-foreground">{t.projects.technicalHighlights}</p>
                     <ul className="mt-3 space-y-2 text-[0.9375rem] leading-relaxed">
                       {project.highlights.map((h) => (
                         <li key={h} className="flex gap-3">
@@ -77,7 +84,7 @@ const Row = ({ project, number, defaultOpen }: { project: Project; number: strin
                   <p className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                     {project.links.map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="link">
-                        {link.type === "demo" || link.label === "GitHub" ? link.label : `${link.label} on GitHub`} ↗
+                        {link.type === "demo" || link.label === "GitHub" ? link.label : t.projects.onGitHub(link.label)} ↗
                       </a>
                     ))}
                   </p>
@@ -86,7 +93,7 @@ const Row = ({ project, number, defaultOpen }: { project: Project; number: strin
               {image && (
                 <img
                   src={image}
-                  alt={`${project.title} screenshot`}
+                  alt={t.projects.screenshotAlt(project.title)}
                   loading="lazy"
                   className={cn(
                     "block h-auto w-full md:col-span-6 md:col-start-8",

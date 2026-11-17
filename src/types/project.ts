@@ -67,8 +67,6 @@ export interface Project {
   keyPoints?: string[];
   /** Featured projects: the homepage text, written as a short story. */
   story?: string;
-  /** Featured projects: one line from a decision, set large beside the visual. */
-  pullQuote?: string;
   /** Background of the featured visual panel. */
   visualTone?: "paper" | "mint";
   /** Secondary projects: technical highlights shown when the row is opened. */
@@ -90,6 +88,12 @@ export interface Project {
   plannedTech?: string[];
   /** The first decision is shown as the key decision on featured projects. */
   decisions: ProjectDecision[];
+  /**
+   * How the decisions chapter is labelled. "solutions" (Technical solutions /
+   * Solution) is used where the solutions were largely proposed with AI
+   * assistance, so the wording doesn't imply sole authorship. Default: "decisions".
+   */
+  decisionsTerm?: "decisions" | "solutions";
   progress?: ProjectProgress;
   links: ProjectLink[];
 }

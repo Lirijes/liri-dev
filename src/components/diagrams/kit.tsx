@@ -1,4 +1,5 @@
 import { Fragment, type ReactNode } from "react";
+import { useT } from "@/i18n/context";
 import { cn } from "@/lib/utils";
 
 /**
@@ -50,7 +51,7 @@ export const DiagramNode = ({ kind, title, subtitle, items, className }: Diagram
   const style = nodeStyles[kind];
   const muted = kind === "planned" || kind === "blocked";
   return (
-    <div className={cn("min-w-0 flex-1 break-words px-4 py-3.5", style.box, className)}>
+    <div className={cn("min-w-0 flex-1 break-words hyphens-auto px-4 py-3.5", style.box, className)}>
       <p
         className={cn(
           "font-display text-[1.375rem] leading-tight",
@@ -165,27 +166,31 @@ export const DiagramGroup = ({
   </div>
 );
 
-const legendItems = {
-  built: { label: "Built", swatch: "border-[1.5px] border-foreground" },
-  planned: { label: "Planned", swatch: "border-[1.5px] border-dashed border-muted-foreground" },
-  client: { label: "Frontend", swatch: "border-[1.5px] border-foreground" },
-  server: { label: "Backend", swatch: "border-[1.5px] border-primary" },
-  data: { label: "Database", swatch: "border-[3px] border-double border-foreground" },
-  blocked: { label: "No access", swatch: "bg-foreground/[0.08]" },
+// Swatches per legend entry; the labels come from the translations (t.diagram).
+const legendSwatches = {
+  built: "border-[1.5px] border-foreground",
+  planned: "border-[1.5px] border-dashed border-muted-foreground",
+  client: "border-[1.5px] border-foreground",
+  server: "border-[1.5px] border-primary",
+  data: "border-[3px] border-double border-foreground",
+  blocked: "bg-foreground/[0.08]",
 } as const;
 
-export type LegendKey = keyof typeof legendItems;
+export type LegendKey = keyof typeof legendSwatches;
 
-export const Legend = ({ items }: { items: LegendKey[] }) => (
-  <ul className="flex flex-wrap gap-x-4 gap-y-1.5" aria-label="Legend">
-    {items.map((key) => (
-      <li key={key} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span aria-hidden className={cn("h-3 w-4", legendItems[key].swatch)} />
-        {legendItems[key].label}
-      </li>
-    ))}
-  </ul>
-);
+export const Legend = ({ items }: { items: LegendKey[] }) => {
+  const t = useT();
+  return (
+    <ul className="flex flex-wrap gap-x-4 gap-y-1.5" aria-label={t.diagram.legend}>
+      {items.map((key) => (
+        <li key={key} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <span aria-hidden className={cn("h-3 w-4", legendSwatches[key])} />
+          {t.diagram[key]}
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 /**
  * Wrapper for every full diagram: a serif caption, an optional legend, a text

@@ -1,8 +1,12 @@
 import { afterEach, describe, it, expect } from "vitest";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
 import Index from "@/pages/Index";
 import Projects from "@/components/Projects";
-import { projects } from "@/data/projects";
+import { projectsByLang } from "@/data/projects";
+import { renderIn } from "./render";
+
+// These tests check the English version; Swedish has its own tests in i18n.test.tsx.
+const projects = projectsByLang.en;
 
 const goTo = (hash: string) =>
   act(() => {
@@ -28,8 +32,8 @@ describe("project data", () => {
     }
   });
 
-  it("never presents Nodia's planned features as built", () => {
-    const nodia = projects.find((p) => p.id === "nodia")!;
+  it.each(["en", "sv"] as const)("never presents Nodia's planned features as built (%s)", (lang) => {
+    const nodia = projectsByLang[lang].find((p) => p.id === "nodia")!;
     const plannedTerms = /semantic kernel|ollama|\brag\b|retrieval|agent|embedding/i;
     const presentedAsDone = [
       nodia.summary,
@@ -61,7 +65,7 @@ describe("project data", () => {
 
 describe("homepage projects", () => {
   it("links each featured project to its case study", () => {
-    render(<Projects />);
+    renderIn("en", <Projects />);
     for (const p of projects.filter((x) => x.featured)) {
       expect(screen.getByRole("link", { name: new RegExp(`Explore project: ${p.title}`) })).toHaveAttribute(
         "href",
@@ -71,7 +75,7 @@ describe("homepage projects", () => {
   });
 
   it("starts every secondary row closed and opens one on click", () => {
-    render(<Projects />);
+    renderIn("en", <Projects />);
     const others = projects.filter((p) => !p.featured);
     const toggles = others.map((p) => screen.getByRole("button", { name: new RegExp(p.title) }));
     for (const t of toggles) expect(t).toHaveAttribute("aria-expanded", "false");
@@ -88,7 +92,7 @@ describe("case study pages", () => {
 
   it("renders Nodia as its own page with chapters, keeping planned work apart", () => {
     window.history.replaceState(null, "", "/#project/nodia");
-    render(<Index />);
+    renderIn("en", <Index />);
     expect(screen.getByRole("heading", { level: 1, name: "Nodia" })).toBeInTheDocument();
     const chapters = screen.getByRole("navigation", { name: "Chapters" });
     expect(within(chapters).getByRole("link", { name: "Progress" })).toHaveAttribute("href", "#project/nodia/progress");
@@ -106,7 +110,7 @@ describe("case study pages", () => {
 
   it("skip link moves focus to the content without leaving a case study", () => {
     window.history.replaceState(null, "", "/#project/nodia");
-    render(<Index />);
+    renderIn("en", <Index />);
     fireEvent.click(screen.getByRole("link", { name: "Skip to content" }));
     expect(document.activeElement).toBe(document.getElementById("main"));
     expect(window.location.hash).toBe("#project/nodia");
@@ -115,7 +119,7 @@ describe("case study pages", () => {
 
   it("shows one decision at a time, starting with the first", () => {
     window.history.replaceState(null, "", "/#project/nodia");
-    render(<Index />);
+    renderIn("en", <Index />);
     const first = screen.getByRole("button", { name: /The API is the only path to the data/ });
     const second = screen.getByRole("button", { name: /Identity only from the verified token/ });
     expect(first).toHaveAttribute("aria-expanded", "true");
@@ -127,13 +131,13 @@ describe("case study pages", () => {
 
   it("gives MinSommar a screenshots chapter and links to the next project", () => {
     window.history.replaceState(null, "", "/#project/minsommar");
-    render(<Index />);
+    renderIn("en", <Index />);
     expect(screen.getByRole("heading", { level: 2, name: "Screenshots" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Nodia →/ })).toHaveAttribute("href", "#project/nodia");
   });
 
   it("switches between the portfolio and a case study when the hash changes", () => {
-    render(<Index />);
+    renderIn("en", <Index />);
     expect(screen.getByRole("heading", { level: 1, name: /Lirije/ })).toBeInTheDocument();
     goTo("#project/minsommar");
     expect(screen.getByRole("heading", { level: 1, name: "MinSommar" })).toBeInTheDocument();
@@ -143,14 +147,14 @@ describe("case study pages", () => {
 
   it("opens a secondary project's row instead of a page", () => {
     window.history.replaceState(null, "", "/#project/review-management-tool");
-    render(<Index />);
+    renderIn("en", <Index />);
     expect(screen.queryByRole("heading", { level: 1, name: "Review Management Tool" })).toBeNull();
     expect(screen.getByRole("button", { name: /Review Management Tool/ })).toHaveAttribute("aria-expanded", "true");
   });
 
   it("ignores unknown project ids", () => {
     window.history.replaceState(null, "", "/#project/does-not-exist");
-    render(<Index />);
+    renderIn("en", <Index />);
     expect(screen.getByRole("heading", { level: 1, name: /Lirije/ })).toBeInTheDocument();
   });
 });

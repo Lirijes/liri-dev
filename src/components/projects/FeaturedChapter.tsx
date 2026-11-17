@@ -1,6 +1,8 @@
 import { ProjectDiagram } from "@/components/diagrams";
 import { Reveal } from "@/components/editorial";
+import { useT } from "@/i18n/context";
 import { projectHash } from "@/lib/hash-route";
+import { paragraphs } from "@/lib/text";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/project";
 
@@ -10,6 +12,7 @@ import type { Project } from "@/types/project";
  * Chapters alternate sides. On phones: title, visual, then the story.
  */
 const FeaturedChapter = ({ project, index }: { project: Project; index: number }) => {
+  const t = useT();
   const reversed = index % 2 === 1;
   const number = String(index + 1).padStart(2, "0");
   const demo = project.links.find((l) => l.type === "demo");
@@ -45,13 +48,8 @@ const FeaturedChapter = ({ project, index }: { project: Project; index: number }
           )}
         >
           {project.visual.kind === "diagram" ? (
-            <div className="space-y-8 bg-paper-deep px-[var(--gutter)] py-10 md:px-12 md:py-14 lg:px-16">
+            <div className="bg-paper-deep px-[var(--gutter)] py-10 md:px-12 md:py-14 lg:px-16">
               <ProjectDiagram id={project.visual.id} compact />
-              {project.pullQuote && (
-                <blockquote className="max-w-xl font-display text-[clamp(1.5rem,2.4vw,2.125rem)] leading-tight">
-                  “{project.pullQuote}”
-                </blockquote>
-              )}
             </div>
           ) : (
             <div
@@ -77,15 +75,19 @@ const FeaturedChapter = ({ project, index }: { project: Project; index: number }
             reversed ? "md:col-span-5 md:col-start-8" : "md:col-span-5 lg:col-span-4"
           )}
         >
-          <p className="max-w-xl text-lg leading-relaxed text-ink-soft">{project.story ?? project.summary}</p>
+          <div className="max-w-xl space-y-4 text-lg leading-relaxed text-ink-soft">
+            {paragraphs(project.story ?? project.summary).map((text) => (
+              <p key={text}>{text}</p>
+            ))}
+          </div>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {project.role} · {project.status.toLowerCase()}
+            {project.role} · {t.status[project.status].toLowerCase()}
             <br />
             {project.cardTech.join(", ")}
           </p>
           <p className="flex flex-wrap gap-x-7 gap-y-2">
-            <a href={projectHash(project.id)} aria-label={`Explore project: ${project.title}`} className="link font-medium">
-              Explore project →
+            <a href={projectHash(project.id)} aria-label={t.projects.exploreLabel(project.title)} className="link font-medium">
+              {t.projects.explore}
             </a>
             {demo && (
               <a href={demo.url} target="_blank" rel="noopener noreferrer" className="link">

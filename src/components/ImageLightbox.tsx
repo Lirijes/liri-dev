@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import { useT } from "@/i18n/context";
 import { cn } from "@/lib/utils";
 
 interface ImageLightboxProps {
@@ -27,6 +28,7 @@ const ImageLightbox = ({
   onClose,
   onIndexChange,
 }: ImageLightboxProps) => {
+  const t = useT();
   const [zoomed, setZoomed] = useState(false);
   const hasMultiple = images.length > 1;
 
@@ -61,7 +63,7 @@ const ImageLightbox = ({
           onClick={onClose}
         >
           <DialogPrimitive.Title className="sr-only">
-            {title} — image {index + 1} of {images.length}
+            {t.lightbox.title(title, index + 1, images.length)}
           </DialogPrimitive.Title>
 
           {/* Top bar */}
@@ -82,7 +84,7 @@ const ImageLightbox = ({
               <button
                 onClick={() => setZoomed((z) => !z)}
                 className="p-2 rounded-md hover:bg-white/10 transition-colors"
-                aria-label={zoomed ? "Zoom out" : "Zoom in"}
+                aria-label={zoomed ? t.lightbox.zoomOut : t.lightbox.zoomIn}
               >
                 {zoomed ? (
                   <ZoomOut className="h-5 w-5" />
@@ -93,7 +95,7 @@ const ImageLightbox = ({
               <button
                 onClick={onClose}
                 className="p-2 rounded-md hover:bg-white/10 transition-colors"
-                aria-label="Close"
+                aria-label={t.lightbox.close}
               >
                 <X className="h-5 w-5" />
               </button>
@@ -111,7 +113,7 @@ const ImageLightbox = ({
               <motion.img
                 key={index}
                 src={images[index]}
-                alt={`${title} — image ${index + 1}`}
+                alt={t.lightbox.title(title, index + 1, images.length)}
                 onClick={(e) => {
                   e.stopPropagation();
                   setZoomed((z) => !z);
@@ -136,14 +138,14 @@ const ImageLightbox = ({
               <button
                 onClick={goToPrevious}
                 className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                aria-label="Previous image"
+                aria-label={t.lightbox.previous}
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={goToNext}
                 className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                aria-label="Next image"
+                aria-label={t.lightbox.next}
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -166,7 +168,7 @@ const ImageLightbox = ({
                       ? "ring-primary opacity-100"
                       : "ring-transparent opacity-50 hover:opacity-100"
                   )}
-                  aria-label={`View image ${i + 1}`}
+                  aria-label={t.lightbox.viewImage(i + 1)}
                 >
                   <img
                     src={src}
