@@ -36,16 +36,20 @@ describe("Hero", () => {
     renderIn("en", <About />);
     const portrait = screen.getByAltText("Portrait of Lirije Shabani");
     expect(portrait.className).not.toMatch(/object-cover|aspect-/);
-    expect(screen.getByRole("link", { name: "CV ↓" })).toHaveAttribute("download");
+    const cv = screen.getByRole("link", { name: "CV ↓" });
+    expect(cv).toHaveAttribute("download");
+    expect(cv).toHaveAttribute("href", "/CV_Lirije_Shabani_Eng.pdf");
     expect(screen.getByRole("link", { name: "GitHub ↗" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "LinkedIn ↗" })).toBeInTheDocument();
   });
 
-  it("reads in Swedish, and says the CV is in English", () => {
+  it("reads in Swedish and offers the Swedish CV", () => {
     renderIn("sv", <About />);
     expect(screen.getByText(/bakom API:et/)).toBeInTheDocument();
     expect(screen.getByAltText("Porträtt av Lirije Shabani")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "CV (engelska) ↓" })).toHaveAttribute("download");
+    const cv = screen.getByRole("link", { name: "CV ↓" });
+    expect(cv).toHaveAttribute("download");
+    expect(cv).toHaveAttribute("href", "/CV_Lirije_Shabani_Sv.pdf");
   });
 });
 

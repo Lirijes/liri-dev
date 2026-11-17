@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { useT } from "@/i18n/context";
+import { useLang, useT } from "@/i18n/context";
 import { links } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ export const ProfileLinks = ({ className }: { className?: string }) => {
   const t = useT();
   return (
     <p className={cn("flex flex-wrap gap-x-5 gap-y-2", className)}>
-      <a href={links.cv} download className="link">
+      <a href={links.cv[useLang()]} download className="link">
         {t.links.cv}
       </a>
       <a href={links.github} target="_blank" rel="noopener noreferrer" className="link">

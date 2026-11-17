@@ -32,7 +32,7 @@ const sv = {
   },
   languageNames: { sv: "Svenska", en: "English" },
   links: {
-    cv: "CV (engelska) ↓",
+    cv: "CV ↓",
     github: "GitHub ↗",
     linkedin: "LinkedIn ↗",
     kofi: "Bjud mig på en kaffe ↗",
