@@ -1,30 +1,31 @@
 import { Project } from "@/types/project";
 
+// English project content (the original text).
 // Every technical claim here is verified against the project's source code,
 // or (for the RevolutionRace tool, whose code is not available) limited to
 // what is stated in the CV.
-export const projects: Project[] = [
+export const projectsEn: Project[] = [
   {
     id: "nodia",
     title: "Nodia",
     year: "2026",
-    role: "Sole Developer",
+    role: "Project owner & developer (AI-assisted)",
     type: "Fullstack",
     status: "In development",
     featured: true,
+    decisionsTerm: "solutions",
     summary:
       "An AI platform for searching and working with company data, in development. The foundation is in place: a .NET API with Supabase authentication, multi-tenant workspaces and tested data isolation.",
     overview:
-      "Nodia is a platform I'm building to let companies search, ask questions about and act on their own documents and data with AI. Before adding any AI features I'm building what everything else depends on: who the user is, which company's data they can reach, and making sure that boundary holds — document retrieval must never return another company's content. The backend is an ASP.NET Core Web API on .NET 10 with Entity Framework Core against PostgreSQL in Supabase. The React and TypeScript frontend signs in through Supabase Auth and calls the API with the user's access token.",
-    myRole: "Sole developer — architecture, backend, frontend, database and development environment.",
+      "Nodia is an AI platform I'm developing for companies that want to search, ask questions about and eventually carry out tasks with their own data. The work so far has focused on the technical foundation: a .NET API that handles authentication, permissions and access to company data. The platform is built for multiple companies, and each user should only be able to reach information belonging to companies they are a member of — document retrieval must never return another company's content. The backend is an ASP.NET Core Web API on .NET 10 with Entity Framework Core against PostgreSQL in Supabase. The React and TypeScript frontend signs in through Supabase Auth and calls the API with the user's access token. The frontend started as a Lovable prototype and was then moved to Vite and React Router.",
+    myRole: "I own the project: I defined what Nodia should do and its security requirements, decided scope and priorities, and tested each feature as it was built. Much of the architecture analysis and code was produced with Claude, an AI coding assistant, which I directed and whose suggestions I discussed and chose between. I'm currently working through the code to deepen my understanding and become comfortable explaining the technical decisions and implementation.",
     keyPoints: [
       "ASP.NET Core API on .NET 10 that verifies Supabase JWTs and requires login by default",
       "Multi-tenant companies and memberships, with a membership check on every company route",
       "Around 30 integration tests against a real PostgreSQL container, run in CI",
     ],
     story:
-      "Nodia is the platform I'm building to let companies search and ask questions of their own data with AI. So far, the interesting work isn't the AI. It's everything that has to be true first: who the user is, which company they belong to — and proof that one company can never reach another's data.",
-    pullQuote: "Non-members get 404 — the same answer as a company that doesn't exist.",
+      "An AI platform for companies that want to search and work with their own data. The foundation is built in .NET with sign-in, company-based permissions and secure data handling. The AI features are the next step.",
     visualTone: "paper",
     implementation: [
       {
