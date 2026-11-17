@@ -1,18 +1,8 @@
-const Footer = () => {
-  return (
-    <footer className="py-8 border-t border-border">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-display text-xl text-foreground">
-            Lirije<span className="text-primary">.</span>
-          </p>
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Lirije Shabani. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className="page flex flex-wrap justify-between gap-4 pb-10 pt-[clamp(4rem,8vw,6rem)] text-[0.8125rem] text-muted-foreground">
+    <p>© {new Date().getFullYear()} Lirije Shabani</p>
+    <p>Skene, Sweden</p>
+  </footer>
+);
 
 export default Footer;

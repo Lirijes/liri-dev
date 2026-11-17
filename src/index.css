@@ -2,41 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/*
+ * Editorial design tokens. All colours are HSL channels.
+ *
+ * Palette: warm paper, near-black ink, one burgundy accent. The burgundy keeps
+ * the hue (340°) of the original pink, which survives as --rose for small
+ * moments (hover underlines, text selection) — a quiet link to the old site.
+ */
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 220 15% 15%;
+    --background: 37 45% 94%; /* paper #F5F0E8 */
+    --foreground: 36 10% 10%; /* ink #1C1A17 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    --paper-deep: 37 30% 88%; /* figure panels #EAE2D5 */
+    --rule: 35 22% 81%; /* light dividers #D9D0C3 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --primary: 340 48% 42%; /* burgundy #9E375A */
+    --primary-foreground: 37 45% 96%;
+    --rose: 340 65% 62%; /* the original pink, lightened */
+    --rose-tint: 340 60% 92%;
 
-    --primary: 340 65% 55%;
-    --primary-foreground: 0 0% 100%;
+    --muted: 37 30% 88%;
+    --muted-foreground: 33 8% 37%; /* ≥ 5:1 on paper */
+    --ink-soft: 33 9% 22%; /* body copy */
 
-    --secondary: 40 20% 94%;
-    --secondary-foreground: 220 15% 15%;
+    --card: 37 45% 94%;
+    --card-foreground: 36 10% 10%;
+    --popover: 37 45% 96%;
+    --popover-foreground: 36 10% 10%;
+    --secondary: 37 30% 88%;
+    --secondary-foreground: 36 10% 10%;
+    --accent: 340 48% 42%;
+    --accent-foreground: 37 45% 96%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 37 45% 96%;
 
-    --muted: 40 15% 92%;
-    --muted-foreground: 220 10% 45%;
+    --border: 35 22% 81%;
+    --input: 35 22% 81%;
+    --ring: 340 48% 42%;
 
-    --accent: 200 70% 50%;
-    --accent-foreground: 0 0% 100%;
+    --radius: 0.25rem;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 40 15% 88%;
-    --input: 40 15% 88%;
-    --ring: 340 65% 55%;
-
-    --radius: 0.75rem;
+    /* Page gutters scale with the viewport. */
+    --gutter: clamp(1.25rem, 4.5vw, 4rem);
+    /* Space between sections: generous everywhere, never cramped on phones. */
+    --section-gap: clamp(6rem, 13vw, 12.5rem);
+    /* Background behind the MinSommar screenshot (matches the app's own colours). */
+    --mint: 158 24% 89%;
   }
 }
 
@@ -45,7 +57,104 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: hsl(var(--rose-tint));
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
   }
 }
+
+@layer components {
+  /* Fluid type scale: every oversized style scales smoothly from phone to desktop. */
+  .type-name {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(4.75rem, 15.5vw, 14.5rem);
+    line-height: 0.84;
+    letter-spacing: -0.035em;
+  }
+  /* Case-study titles: large, but sized so long names fit beside the facts column. */
+  .type-case {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(4rem, 11vw, 11rem);
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+  }
+  .type-project {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+  }
+  .type-closing {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(4.5rem, 11.5vw, 10.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+  }
+  .type-statement {
+    font-family: theme("fontFamily.display");
+    font-size: clamp(1.75rem, 2.6vw, 2.375rem);
+    line-height: 1.15;
+  }
+  .type-title {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+    line-height: 1.02;
+  }
+  .type-row {
+    font-family: theme("fontFamily.display");
+    font-weight: 400;
+    font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+    line-height: 1.05;
+  }
+  /* Small letter-spaced label that opens every section. */
+  .label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  /* Text link with a thin underline that turns rose on hover. */
+  .link {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: hsl(var(--foreground) / 0.35);
+    transition: color 150ms, text-decoration-color 150ms;
+  }
+  .link:hover {
+    color: hsl(var(--primary));
+    text-decoration-color: hsl(var(--rose));
+  }
+  .page {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section-gap {
+    padding-top: var(--section-gap);
+  }}

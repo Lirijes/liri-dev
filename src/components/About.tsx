@@ -1,87 +1,52 @@
-import { motion } from "framer-motion";
 import profileImage from "@/assets/profile.jpg";
+import { Fact, Reveal } from "@/components/editorial";
+import { ProfileLinks } from "@/components/Header";
 
-const About = () => {
+/**
+ * Hero: the name as the headline, then a rule and three columns —
+ * portrait (uncropped), introduction and a compact facts column.
+ */
+const About = () => (
+  <section id="top" aria-label="Introduction" className="page pt-8 sm:pt-14">
+    <Reveal>
+      <h1 className="type-name">
+        Lirije
+        <br />
+        Shabani<span className="text-primary">.</span>
+      </h1>
+    </Reveal>
 
-  return (
-    <section id="about" className="pt-32 pb-20">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-12 items-start">
-          <motion.div 
-            className="md:col-span-4"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="rounded-2xl overflow-hidden bg-muted">
-              <img
-                src={profileImage}
-                alt="Lirije Shabani"
-                className="w-full h-auto block"
-              />
-            </div>
-          </motion.div>
-          
-          <div className="md:col-span-8 space-y-6">
-            <motion.div 
-              className="space-y-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <p className="text-primary font-medium text-sm tracking-wide uppercase">
-                Fullstack Developer
-              </p>
-              <h1 className="font-display text-5xl md:text-6xl text-foreground">
-                Lirije Shabani
-              </h1>
-            </motion.div>
-            
-            <motion.p 
-              className="text-lg text-muted-foreground leading-relaxed max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              I’m a full-stack developer who enjoys the backend side most: designing APIs, data models and the rules that keep data correct and secure. I’ve worked on e-commerce platforms, CMS integrations and large volumes of product data, and I’m currently building Nodia, a .NET platform for working with company data using AI, while studying DevSecOps.
-            </motion.p>
-            
-            <motion.div 
-              className="flex flex-wrap gap-3 pt-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-            </motion.div>
-            
-            <motion.div 
-              className="pt-6 flex flex-wrap gap-6 text-sm text-muted-foreground"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <div className="flex items-center gap-2">
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-primary"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span>Based in Skene, Sweden</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <motion.div 
-                  className="w-2 h-2 rounded-full bg-accent"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                />
-                <span>Available for opportunities</span>
-              </div>
-            </motion.div>
-          </div>
-        </div>
+    <Reveal delay={0.1} className="mt-10 grid gap-10 border-t border-foreground pt-6 sm:mt-16 md:grid-cols-12 md:gap-x-6">
+      {/* Introduction first in source order: on a phone it is read before the photo. */}
+      <div className="space-y-6 md:col-span-7 md:col-start-6 lg:col-span-4 lg:col-start-5">
+        <p className="type-statement">
+          Full-stack developer. Most of my work happens <em className="text-primary">behind the API</em> — data
+          models, access rules and the systems that keep data correct.
+        </p>
+        <p className="max-w-xl leading-relaxed text-ink-soft">
+          I've worked on e-commerce platforms, CMS integrations and large volumes of product data. Right now I'm
+          building Nodia, a .NET platform for working with company data using AI.
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <img
+        src={profileImage}
+        alt="Portrait of Lirije Shabani"
+        width={904}
+        height={1294}
+        className="block h-auto w-3/5 max-w-[340px] sm:w-2/5 md:col-span-4 md:col-start-1 md:row-start-1 md:w-full lg:col-span-3"
+      />
+
+      <dl className="grid gap-5 sm:grid-cols-2 md:col-span-7 md:col-start-6 lg:col-span-3 lg:col-start-10 lg:row-start-1 lg:grid-cols-1">
+        <Fact term="Based">Skene, Sweden</Fact>
+        <Fact term="Focus">Backend, APIs, data and AI integration</Fact>
+        <Fact term="Now">Building Nodia · studying DevSecOps · open to new roles</Fact>
+        <Fact term="Links">
+          <ProfileLinks />
+        </Fact>
+      </dl>
+    </Reveal>
+  </section>
+);
 
 export default About;

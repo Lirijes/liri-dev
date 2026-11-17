@@ -1,72 +1,87 @@
-import { Mail, Github, Linkedin } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { useActiveSection } from "@/hooks/use-active-section";
+import { links } from "@/lib/links";
+import { cn } from "@/lib/utils";
 
-const HeaderLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <a
-    href={href}
-    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-  >
-    {children}
-  </a>
+const sections = [
+  { id: "work", label: "Work" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "contact", label: "Contact" },
+] as const;
+const sectionIds = sections.map((s) => s.id);
+
+/** Text links to GitHub, LinkedIn and the CV, used in the hero, menu and footer. */
+export const ProfileLinks = ({ className }: { className?: string }) => (
+  <p className={cn("flex flex-wrap gap-x-5 gap-y-2", className)}>
+    <a href={links.cv} download className="link">
+      CV ↓
+    </a>
+    <a href={links.github} target="_blank" rel="noopener noreferrer" className="link">
+      GitHub ↗
+    </a>
+    <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="link">
+      LinkedIn ↗
+    </a>
+  </p>
 );
 
+/** Minimal one-line header: name on the left, four quiet links on the right. */
 const Header = () => {
-  return (
-    <motion.header 
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <motion.a 
-          href="#" 
-          className="font-display text-2xl text-foreground"
-        >
-          Lirije<span className="text-primary">.</span>
-        </motion.a>
-        
-        <nav className="hidden md:flex items-center gap-8">
-          <HeaderLink href="#about">About</HeaderLink>
-          <HeaderLink href="#projects">Projects</HeaderLink>
-          <HeaderLink href="#experience">Experience</HeaderLink>
-          <HeaderLink href="#skills">Skills</HeaderLink>
-          <HeaderLink href="#education">Education</HeaderLink>
-          <HeaderLink href="#contact">Contact</HeaderLink>
-        </nav>
+  const active = useActiveSection(sectionIds);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-        <div className="flex items-center gap-4">
-          <motion.a 
-            href="https://github.com/lirijes" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Github size={20} />
-          </motion.a>
-          <motion.a 
-            href="https://linkedin.com/in/lirijes" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            whileHover={{ scale: 1.1, rotate: -5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Linkedin size={20} />
-          </motion.a>
-          <motion.a 
-            href="mailto:Lirije11@hotmail.com"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Mail size={20} />
-          </motion.a>
-        </div>
-      </div>
-    </motion.header>
+  return (
+    <header className="page flex items-baseline justify-between gap-4 py-6 text-[0.8125rem] sm:py-7">
+      <a href="#top" className="font-medium hover:text-primary">
+        Lirije Shabani
+      </a>
+
+      <nav aria-label="Main" className="hidden sm:block">
+        <ul className="flex gap-9">
+          {sections.map((s) => (
+            <li key={s.id}>
+              <a
+                href={`#${s.id}`}
+                aria-current={active === s.id ? "location" : undefined}
+                className={cn(
+                  "transition-colors hover:text-primary",
+                  active === s.id && "underline decoration-rose underline-offset-4"
+                )}
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+        <SheetTrigger className="-my-3 -mr-3 min-h-[44px] min-w-[44px] px-3 sm:hidden" aria-label="Open menu">
+          Menu
+        </SheetTrigger>
+        <SheetContent side="right" className="flex w-full flex-col border-0 bg-background px-[var(--gutter)] sm:max-w-sm">
+          <SheetTitle className="text-[0.8125rem] font-medium">Lirije Shabani</SheetTitle>
+          <nav aria-label="Mobile" className="mt-16">
+            <ul className="space-y-3">
+              {sections.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-display text-5xl leading-tight hover:text-primary"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <ProfileLinks className="mt-auto pb-6 text-sm" />
+        </SheetContent>
+      </Sheet>
+    </header>
   );
 };
 

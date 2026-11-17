@@ -1,93 +1,28 @@
-import { motion } from "framer-motion";
+import { Reveal, SectionHead } from "@/components/editorial";
+import { aiAssistedTools, skillAreas } from "@/data/skills";
 
-// Categories mirror the structure used in the current CV so the portfolio
-// stays in sync. `dotColor` is a literal class (not interpolated) so Tailwind
-// can see it at build time.
-const skillCategories = [
-  {
-    title: "Backend",
-    skills: ["C#", ".NET", "ASP.NET Core", "Entity Framework Core", "Node.js"],
-    dotColor: "bg-primary",
-  },
-  {
-    title: "Data & APIs",
-    skills: ["SQL", "PostgreSQL", "SQL Server", "Supabase", "REST API", "GraphQL"],
-    dotColor: "bg-accent",
-  },
-  {
-    title: "Frontend",
-    skills: ["TypeScript", "JavaScript", "React", "Vue", "Astro", "HTML/CSS"],
-    dotColor: "bg-primary",
-  },
-  {
-    title: "CMS & E-commerce",
-    skills: ["DatoCMS", "Umbraco", "nopCommerce", "Storyblok", "WooCommerce"],
-    dotColor: "bg-accent",
-  },
-  {
-    title: "DevOps & Testing",
-    skills: ["Git", "GitHub Actions", "Azure DevOps", "Docker", "Vercel", "xUnit", "Testcontainers"],
-    dotColor: "bg-primary",
-  },
-  {
-    title: "AI-Assisted Development",
-    skills: ["Claude Code", "GitHub Copilot"],
-    dotColor: "bg-accent",
-  },
-];
-
-const Skills = () => {
-  return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-6">
-        <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="text-primary font-medium text-sm tracking-wide uppercase mb-2">
-            Technical Expertise
-          </p>
-          <h2 className="font-display text-4xl text-foreground">Skills</h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <h3 className="font-semibold text-foreground mb-4 pb-2 border-b-2 border-border/50">
-                {category.title}
-              </h3>
-              <ul className="space-y-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.li
-                    key={skill}
-                    className="text-muted-foreground text-sm flex items-center gap-2"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.2 + skillIndex * 0.05 }}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${category.dotColor} opacity-70`}
-                    />
-                    {skill}
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+/** Skills as a typographic table: area, main tools in large serif, the rest small. */
+const Skills = () => (
+  <section id="skills" aria-label="Skills" className="page section-gap scroll-mt-4">
+    <SectionHead label="Skills" aside={<span className="normal-case tracking-normal">Large: what I use most</span>} />
+    <Reveal>
+      <dl>
+        {skillAreas.map((area) => (
+          <div
+            key={area.label}
+            className="grid gap-x-6 gap-y-2 border-b border-rule py-6 md:grid-cols-[12rem_minmax(0,1.4fr)_minmax(0,1fr)] md:items-baseline md:py-8"
+          >
+            <dt className="label text-muted-foreground">{area.label}</dt>
+            <dd className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.15]">{area.primary.join(", ")}</dd>
+            <dd className="text-sm leading-relaxed text-muted-foreground">{area.secondary.join(" · ")}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-6 text-sm text-muted-foreground">
+        I also use AI-assisted development day to day, with {aiAssistedTools.join(" and ")}.
+      </p>
+    </Reveal>
+  </section>
+);
 
 export default Skills;

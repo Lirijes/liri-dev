@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        paper: { deep: "hsl(var(--paper-deep))" },
+        rule: "hsl(var(--rule))",
+        rose: { DEFAULT: "hsl(var(--rose))", tint: "hsl(var(--rose-tint))" },
+        "ink-soft": "hsl(var(--ink-soft))",
+        mint: "hsl(var(--mint))",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
