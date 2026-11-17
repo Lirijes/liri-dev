@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Nodia system architecture</title>
+  <desc>React frontend authenticates with Supabase Auth and calls the ASP.NET Core API with a JWT. The API verifies the token, checks company membership and is the only path to PostgreSQL. Supabase's Data API has no access. A planned AI layer sits behind the API.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#4B5563"/>
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9AA0A6"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#FBFAF7"/>
+
+  <!-- Header -->
+  <text x="80" y="100" font-size="48" font-weight="600" fill="#23272F">Nodia</text>
+  <text x="80" y="142" font-size="26" fill="#66707A">System architecture</text>
+
+  <!-- Legend -->
+  <line x1="80" y1="200" x2="130" y2="200" stroke="#4B5563" stroke-width="3"/>
+  <text x="142" y="208" font-size="22" fill="#4B5563">Built</text>
+  <line x1="230" y1="200" x2="280" y2="200" stroke="#9AA0A6" stroke-width="3" stroke-dasharray="10 7"/>
+  <text x="292" y="208" font-size="22" fill="#66707A">Planned</text>
+
+  <!-- Supabase Auth -->
+  <rect x="1140" y="150" width="380" height="140" rx="14" fill="#FFFFFF" stroke="#CFC9BE" stroke-width="2"/>
+  <text x="1170" y="200" font-size="30" font-weight="600" fill="#23272F">Supabase Auth</text>
+  <text x="1170" y="240" font-size="21" fill="#66707A">Sign up · sign in</text>
+  <text x="1170" y="270" font-size="21" fill="#66707A">Issues signed JWTs</text>
+
+  <!-- Docker Compose boundary -->
+  <rect x="50" y="305" width="990" height="360" rx="18" fill="#F3F0EA" stroke="#DDD8CE" stroke-width="2"/>
+  <text x="80" y="650" font-size="19" fill="#66707A" letter-spacing="0.5">DOCKER COMPOSE · LOCAL DEVELOPMENT</text>
+
+  <!-- Frontend -->
+  <rect x="80" y="340" width="380" height="270" rx="14" fill="#FFFFFF" stroke="#2697D3" stroke-width="2.5"/>
+  <text x="110" y="392" font-size="30" font-weight="600" fill="#23272F">Frontend</text>
+  <text x="110" y="434" font-size="22" fill="#2697D3">React · TypeScript · Vite</text>
+  <text x="110" y="482" font-size="21" fill="#4B5563">Supabase Auth client</text>
+  <text x="110" y="518" font-size="21" fill="#4B5563">Protected routes</text>
+  <text x="110" y="554" font-size="21" fill="#4B5563">API client with Bearer token</text>
+
+  <!-- API -->
+  <rect x="590" y="340" width="420" height="270" rx="14" fill="#FFFFFF" stroke="#D63D6E" stroke-width="2.5"/>
+  <text x="620" y="392" font-size="30" font-weight="600" fill="#23272F">Nodia API</text>
+  <text x="620" y="434" font-size="22" fill="#D63D6E">ASP.NET Core · .NET 10</text>
+  <text x="620" y="482" font-size="21" fill="#4B5563">JWT validation</text>
+  <text x="620" y="518" font-size="21" fill="#4B5563">Company membership checks</text>
+  <text x="620" y="554" font-size="21" fill="#4B5563">EF Core · Swagger</text>
+
+  <!-- Database -->
+  <rect x="1140" y="340" width="380" height="270" rx="14" fill="#FFFFFF" stroke="#CFC9BE" stroke-width="2"/>
+  <text x="1170" y="392" font-size="30" font-weight="600" fill="#23272F">PostgreSQL</text>
+  <text x="1170" y="434" font-size="22" fill="#66707A">Supabase</text>
+  <text x="1170" y="482" font-size="21" fill="#4B5563">Companies · memberships</text>
+  <text x="1170" y="518" font-size="21" fill="#4B5563">RLS on, no policies</text>
+  <text x="1170" y="554" font-size="21" fill="#4B5563">EF Core migrations</text>
+
+  <!-- Frontend -> Supabase Auth -->
+  <path d="M270 340 V215 H1136" fill="none" stroke="#4B5563" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="500" y="202" font-size="20" fill="#4B5563">Sign in · receives JWT</text>
+
+  <!-- API -> Supabase Auth -->
+  <path d="M800 340 V258 H1136" fill="none" stroke="#4B5563" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="830" y="248" font-size="20" fill="#4B5563">Fetches signing keys</text>
+
+  <!-- Frontend -> API -->
+  <path d="M460 480 H586" fill="none" stroke="#4B5563" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="525" y="456" font-size="19" fill="#4B5563" text-anchor="middle">/api</text>
+  <text x="525" y="512" font-size="19" fill="#4B5563" text-anchor="middle">JWT</text>
+
+  <!-- API -> Database -->
+  <path d="M1010 480 H1136" fill="none" stroke="#4B5563" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="1075" y="512" font-size="19" fill="#4B5563" text-anchor="middle">only path</text>
+
+  <!-- Supabase Data API: blocked -->
+  <rect x="1140" y="740" width="380" height="120" rx="14" fill="#F3F0EA" stroke="#DDD8CE" stroke-width="2"/>
+  <text x="1170" y="790" font-size="24" font-weight="600" fill="#66707A">Supabase Data API</text>
+  <text x="1170" y="826" font-size="20" fill="#66707A">anon / authenticated roles</text>
+  <line x1="1330" y1="740" x2="1330" y2="614" stroke="#B4B0A8" stroke-width="2.5"/>
+  <g stroke="#D63D6E" stroke-width="4" stroke-linecap="round">
+    <line x1="1314" y1="661" x2="1346" y2="693"/>
+    <line x1="1346" y1="661" x2="1314" y2="693"/>
+  </g>
+  <text x="1362" y="684" font-size="20" fill="#D63D6E">privileges revoked</text>
+
+  <!-- API -> planned AI layer -->
+  <path d="M800 610 V726" fill="none" stroke="#9AA0A6" stroke-width="2.5" stroke-dasharray="10 7" marker-end="url(#arrow-muted)"/>
+
+  <!-- Planned AI layer -->
+  <rect x="80" y="730" width="980" height="220" rx="18" fill="none" stroke="#9AA0A6" stroke-width="2.5" stroke-dasharray="12 8"/>
+  <text x="110" y="778" font-size="26" font-weight="600" fill="#66707A">AI layer — planned</text>
+
+  <g font-size="20" fill="#66707A">
+    <rect x="110" y="800" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="257" y="836" text-anchor="middle">Documents &amp; search</text>
+    <rect x="422" y="800" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="569" y="836" text-anchor="middle">RAG</text>
+    <rect x="734" y="800" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="881" y="836" text-anchor="middle">Semantic Kernel · Ollama</text>
+
+    <rect x="110" y="872" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="257" y="908" text-anchor="middle">Agents &amp; tool calling</text>
+    <rect x="422" y="872" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="569" y="908" text-anchor="middle">Multi-step workflows</text>
+    <rect x="734" y="872" width="295" height="58" rx="10" fill="none" stroke="#B4B0A8" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="881" y="908" text-anchor="middle">Human approval</text>
+  </g>
+</svg>

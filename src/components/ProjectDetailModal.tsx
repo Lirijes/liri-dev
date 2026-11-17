@@ -23,7 +23,16 @@ const statusVariant = {
   Case: "case",
   Concept: "concept",
   Internal: "internal",
+  "In development": "development",
 } as const;
+
+// Progress groups for projects still being built. Rendered as separate lists so
+// implemented work, ongoing work and plans are never mixed together.
+const progressGroups = [
+  { key: "built", label: "Built so far", dot: "bg-emerald-500" },
+  { key: "inProgress", label: "In progress", dot: "bg-sky-500" },
+  { key: "planned", label: "Planned", dot: "bg-border" },
+] as const;
 
 const getLinkIcon = (type: string) => {
   switch (type) {
@@ -144,6 +153,29 @@ const ProjectDetailModal = ({ project, isOpen, onClose }: ProjectDetailModalProp
                   </p>
                 )}
               </section>
+
+              {/* Progress — only for projects in development */}
+              {project.progress && (
+                <section className="space-y-4">
+                  {progressGroups.map(({ key, label, dot }) => {
+                    const items = project.progress?.[key];
+                    if (!items?.length) return null;
+                    return (
+                      <div key={key}>
+                        <SectionLabel>{label}</SectionLabel>
+                        <ul className="space-y-2">
+                          {items.map((item, i) => (
+                            <li key={i} className="text-muted-foreground text-sm flex items-start gap-2.5">
+                              <span className={`w-1.5 h-1.5 rounded-full ${dot} mt-2 shrink-0`} />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </section>
+              )}
 
               {/* Responsibilities */}
               <section>

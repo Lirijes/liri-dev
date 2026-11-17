@@ -2,11 +2,19 @@ import { motion } from "framer-motion";
 
 const educationData = [
   {
-    degree: "Web Developer .NET",
+    degree: "DevSecOps with a Focus on Security",
+    school: "Handelsakademin",
+    period: "Nov 2026 - Ongoing",
+    credits: "60 HVE",
+    description: "Higher vocational education in DevSecOps and secure software development: CI/CD, cloud and container technologies, automated testing and security practices.",
+    highlight: true
+  },
+  {
+    degree: ".NET Web Developer",
     school: "EC Utbildning",
     period: "Aug 2022 - May 2024",
     type: "Distance Learning",
-    description: "Created multiple web applications for e-commerce using React, MongoDB, C#, ASP.NET WPF, and Umbraco CMS. Built MVC apps for case management. Projects conducted with agile methodologies.",
+    description: "Projects in React, ASP.NET, C#, Umbraco, MVC, MongoDB and SQL, with a focus on web development and agile ways of working.",
     highlight: true
   },
   {

@@ -19,6 +19,7 @@ const badgeVariants = cva(
         case: "border-transparent bg-amber-100 text-amber-700",
         concept: "border-transparent bg-violet-100 text-violet-700",
         internal: "border-transparent bg-slate-100 text-slate-700",
+        development: "border-transparent bg-sky-100 text-sky-700",
       },
     },
     defaultVariants: {

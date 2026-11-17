@@ -16,6 +16,7 @@ const statusVariant = {
   Case: "case",
   Concept: "concept",
   Internal: "internal",
+  "In development": "development",
 } as const;
 
 const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {

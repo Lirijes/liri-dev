@@ -1,5 +1,13 @@
 export type ProjectType = "Web" | "App" | "Backend" | "Fullstack";
-export type ProjectStatus = "Live" | "Case" | "Concept" | "Internal";
+export type ProjectStatus = "Live" | "Case" | "Concept" | "Internal" | "In development";
+
+// Keeps implemented, ongoing and planned work strictly apart for projects
+// that are still being built, so planned items never read as finished.
+export interface ProjectProgress {
+  built: string[];
+  inProgress?: string[];
+  planned?: string[];
+}
 
 export interface ProjectLink {
   label: string;
@@ -22,6 +30,7 @@ export interface Project {
   responsibilities: string[];
   architecture?: string;
   challenges: string[];
+  progress?: ProjectProgress;
   links: ProjectLink[];
   featured?: boolean;
 }

@@ -5,8 +5,8 @@ const experiences = [
     title: "Fullstack Developer",
     company: "Readymade AB",
     location: "Skene",
-    period: "Sep 2025 - Present",
-    description: "Developing and improving the company's e-commerce platform. A large part of the role is structuring and quality-assuring existing code, building reusable components, and improving the UI and design system, as well as handling and quality-assuring large volumes of product data and integrations. I also work with databases, APIs and CMS, and build automations that streamline workflows and reduce manual work.",
+    period: "Sep 2025 - Jul 2026",
+    description: "Worked on the ongoing development of the company's e-commerce platform. A large part of the role was structuring and maintaining code quality, building reusable components, improving the UI and design system, and managing the quality of large volumes of product data. I also worked with databases, GraphQL, APIs and CMS platforms, and built scripts and automations that streamlined workflows and reduced manual work. The role required a high level of ownership and close collaboration with the business to turn needs into technical solutions.",
     technologies: ["TypeScript", "Astro", "DatoCMS", "GraphQL", "REST API", "SQL"],
     focus: ["E-commerce", "Product Data", "Integrations", "CMS", "Automation", "Reusable Components", "Design System"],
     barColor: "bg-primary",
@@ -27,8 +27,9 @@ const experiences = [
     company: "RevolutionRace",
     location: "Borås",
     period: "Nov 2023 - May 2024",
-    description: "Built a Nuxt.js admin application for managing customer reviews and contributed to the company's web platform through improvements to the CMS, XML sitemap and the new footer. Fetched data via GraphQL and worked with Azure DevOps and Git, taking active part in the full agile process from planning and estimation to sprint deliveries.",
+    description: "Built an internal Nuxt.js admin application for moderating customer reviews (see Projects) and contributed to the web platform through improvements to the CMS, the XML sitemap and the new footer. Worked with GraphQL, Azure DevOps and Git, and took an active part in the full agile process, from planning and estimation to sprint delivery.",
     technologies: ["Nuxt.js", "Vue.js", "TypeScript", "GraphQL", "Azure DevOps", "Git", "SCRUM", "CMS"],
+    focus: ["Internal Tooling", "Review Moderation", "Search & Filtering", "CMS"],
     barColor: "bg-accent",
     textColor: "text-accent"
   }

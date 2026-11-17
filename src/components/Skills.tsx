@@ -6,22 +6,32 @@ import { motion } from "framer-motion";
 const skillCategories = [
   {
     title: "Backend",
-    skills: ["C#", ".NET", "ASP.NET Core", "Node.js"],
+    skills: ["C#", ".NET", "ASP.NET Core", "Entity Framework Core", "Node.js"],
     dotColor: "bg-primary",
-  },
-  {
-    title: "Frontend",
-    skills: ["TypeScript", "JavaScript", "React", "Vue", "Astro"],
-    dotColor: "bg-accent",
   },
   {
     title: "Data & APIs",
-    skills: ["SQL", "PostgreSQL", "GraphQL", "REST API"],
+    skills: ["SQL", "PostgreSQL", "SQL Server", "Supabase", "REST API", "GraphQL"],
+    dotColor: "bg-accent",
+  },
+  {
+    title: "Frontend",
+    skills: ["TypeScript", "JavaScript", "React", "Vue", "Astro", "HTML/CSS"],
     dotColor: "bg-primary",
   },
   {
-    title: "Platforms & Tools",
-    skills: ["Supabase", "DatoCMS", "Git", "Azure DevOps"],
+    title: "CMS & E-commerce",
+    skills: ["DatoCMS", "Umbraco", "nopCommerce", "Storyblok", "WooCommerce"],
+    dotColor: "bg-accent",
+  },
+  {
+    title: "DevOps & Testing",
+    skills: ["Git", "GitHub Actions", "Azure DevOps", "Docker", "Vercel", "xUnit", "Testcontainers"],
+    dotColor: "bg-primary",
+  },
+  {
+    title: "AI-Assisted Development",
+    skills: ["Claude Code", "GitHub Copilot"],
     dotColor: "bg-accent",
   },
 ];
@@ -43,7 +53,7 @@ const Skills = () => {
           <h2 className="font-display text-4xl text-foreground">Skills</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}

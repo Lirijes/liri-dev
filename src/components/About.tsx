@@ -43,7 +43,7 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              I’m a full-stack developer focused on building clear, maintainable digital solutions. I enjoy understanding real problems, improving existing systems, and growing together with a collaborative team.
+              I’m a full-stack developer who enjoys the backend side most: designing APIs, data models and the rules that keep data correct and secure. I’ve worked on e-commerce platforms, CMS integrations and large volumes of product data, and I’m currently building Nodia, a .NET platform for working with company data using AI, while studying DevSecOps.
             </motion.p>
             
             <motion.div 
