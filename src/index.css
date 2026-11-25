@@ -3,45 +3,45 @@
 @tailwind utilities;
 
 /*
- * Editorial design tokens. All colours are HSL channels.
+ * Design tokens. All colours are HSL channels.
  *
- * Palette: warm paper, near-black ink, one burgundy accent. The burgundy keeps
- * the hue (340°) of the original pink, which survives as --rose for small
- * moments (hover underlines, text selection) — a quiet link to the old site.
+ * Palette ("wine"): a deep wine-red base with cream text in dark mode, and
+ * the same family inverted in light mode — cream paper, wine-black text and
+ * a deep wine accent. No pink. Every text/background pair is ≥ 4.5:1.
  */
 @layer base {
   :root {
-    --background: 37 45% 94%; /* paper #F5F0E8 */
-    --foreground: 36 10% 10%; /* ink #1C1A17 */
+    --background: 22 33% 94%; /* cream #F4EDE9 */
+    --foreground: 344 26% 11%; /* wine-black #241519 */
 
-    --paper-deep: 37 30% 88%; /* figure panels #EAE2D5 */
-    --rule: 35 22% 81%; /* light dividers #D9D0C3 */
+    --paper-deep: 16 28% 86%; /* panels #E6D8D3 */
+    --rule: 16 28% 86%; /* dividers, same as panels */
 
-    --primary: 340 48% 42%; /* burgundy #9E375A */
-    --primary-foreground: 37 45% 96%;
-    --rose: 340 65% 62%; /* the original pink, lightened */
-    --rose-tint: 340 60% 92%;
+    --primary: 343 45% 33%; /* deep wine #7A2E43 */
+    --primary-foreground: 22 33% 96%;
+    --rose: 343 45% 33%; /* underline accent (kept as a token name) */
+    --rose-tint: 347 42% 85%; /* text selection #E9C9D0 */
 
-    --muted: 37 30% 88%;
-    --muted-foreground: 33 8% 37%; /* ≥ 5:1 on paper */
-    --ink-soft: 33 9% 22%; /* body copy */
+    --muted: 16 28% 86%;
+    --muted-foreground: 345 10% 39%; /* #6E5A5F, 5.5:1 on the background */
+    --ink-soft: 343 20% 21%; /* body copy #3F2A30 */
 
-    --card: 37 45% 94%;
-    --card-foreground: 36 10% 10%;
-    --popover: 37 45% 96%;
-    --popover-foreground: 36 10% 10%;
-    --secondary: 37 30% 88%;
-    --secondary-foreground: 36 10% 10%;
-    --accent: 340 48% 42%;
-    --accent-foreground: 37 45% 96%;
+    --card: 22 33% 94%;
+    --card-foreground: 344 26% 11%;
+    --popover: 22 33% 96%;
+    --popover-foreground: 344 26% 11%;
+    --secondary: 16 28% 86%;
+    --secondary-foreground: 344 26% 11%;
+    --accent: 343 45% 33%;
+    --accent-foreground: 22 33% 96%;
     --destructive: 0 70% 45%;
-    --destructive-foreground: 37 45% 96%;
+    --destructive-foreground: 22 33% 96%;
 
-    --border: 35 22% 81%;
-    --input: 35 22% 81%;
-    --ring: 340 48% 42%;
+    --border: 16 28% 86%;
+    --input: 16 28% 86%;
+    --ring: 343 45% 33%;
 
-    --radius: 0.25rem;
+    --radius: 0.375rem;
 
     /* Page gutters scale with the viewport. */
     --gutter: clamp(1.25rem, 4.5vw, 4rem);
@@ -49,6 +49,41 @@
     --section-gap: clamp(6rem, 13vw, 12.5rem);
     /* Background behind the MinSommar screenshot (matches the app's own colours). */
     --mint: 158 24% 89%;
+  }
+
+  /*
+   * Dark mode: deep wine base #241519, surfaces #40232D, cream text #E9DED9
+   * and a muted wine accent. Applied when <html> has the "dark" class (set
+   * from the visitor's system setting, or their own choice via the toggle).
+   */
+  .dark {
+    --background: 344 26% 11%; /* #241519 */
+    --foreground: 19 27% 88%; /* #E9DED9 */
+
+    --paper-deep: 339 29% 19%; /* #40232D */
+    --rule: 339 29% 19%;
+
+    --primary: 347 30% 70%; /* muted wine #C99AA4 */
+    --primary-foreground: 344 26% 11%;
+    --rose: 347 30% 70%;
+    --rose-tint: 342 32% 27%; /* #5A2E3B */
+
+    --muted: 339 29% 19%;
+    --muted-foreground: 345 11% 64%; /* #AE9A9F, 6.6:1 on the background */
+    --ink-soft: 13 18% 79%; /* #D3C4C0 */
+
+    --card: 344 26% 11%;
+    --card-foreground: 19 27% 88%;
+    --popover: 344 26% 13%;
+    --popover-foreground: 19 27% 88%;
+    --secondary: 339 29% 19%;
+    --secondary-foreground: 19 27% 88%;
+    --accent: 347 30% 70%;
+    --accent-foreground: 344 26% 11%;
+
+    --border: 339 29% 19%;
+    --input: 339 29% 19%;
+    --ring: 347 30% 70%;
   }
 }
 
@@ -84,65 +119,48 @@
 }
 
 @layer components {
-  /* Fluid type scale: every oversized style scales smoothly from phone to desktop. */
-  .type-name {
-    font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(4.75rem, 15.5vw, 14.5rem);
-    line-height: 0.84;
-    letter-spacing: -0.035em;
-  }
-  /* Case-study titles: large, but sized so long names fit beside the facts column. */
+  /* Fluid type scale. Headings are Inter, set heavier and tighter than body text. */
   .type-case {
     font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(4rem, 11vw, 11rem);
-    line-height: 0.86;
-    letter-spacing: -0.03em;
+    font-weight: 600;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
   }
   .type-project {
     font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(3.5rem, 7vw, 6.5rem);
-    line-height: 0.88;
-    letter-spacing: -0.02em;
-  }
-  .type-closing {
-    font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(4.5rem, 11.5vw, 10.5rem);
-    line-height: 0.88;
-    letter-spacing: -0.03em;
+    font-weight: 600;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
   }
   .type-statement {
     font-family: theme("fontFamily.display");
-    font-size: clamp(1.75rem, 2.6vw, 2.375rem);
-    line-height: 1.15;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+    line-height: 1.25;
+    letter-spacing: -0.025em;
   }
   .type-title {
     font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
-    line-height: 1.02;
-  }
-  .type-row {
-    font-family: theme("fontFamily.display");
-    font-weight: 400;
-    font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+    font-weight: 600;
+    font-size: clamp(1.875rem, 3.4vw, 2.75rem);
     line-height: 1.05;
+    letter-spacing: -0.035em;
   }
-  /* Small letter-spaced label that opens every section. */
+  /* Small label that opens every section, set in the monospace. */
   .label {
-    font-size: 0.6875rem;
+    font-family: theme("fontFamily.mono");
+    font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  /* Text link with a thin underline that turns rose on hover. */
+  /* Text link with a thin underline that turns to the accent on hover. */
   .link {
     text-decoration-line: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+    text-underline-offset: 5px;
     text-decoration-color: hsl(var(--foreground) / 0.35);
     transition: color 150ms, text-decoration-color 150ms;
   }
@@ -157,4 +175,13 @@
   }
   .section-gap {
     padding-top: var(--section-gap);
-  }}
+  }
+}
+
+@layer utilities {
+  /* Display text (headings, project names) is Inter, heavier and tighter. */
+  .font-display {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+}

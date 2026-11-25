@@ -51,10 +51,10 @@ export const DiagramNode = ({ kind, title, subtitle, items, className }: Diagram
   const style = nodeStyles[kind];
   const muted = kind === "planned" || kind === "blocked";
   return (
-    <div className={cn("min-w-0 flex-1 break-words hyphens-auto px-4 py-3.5", style.box, className)}>
+    <div className={cn("min-w-0 flex-1 break-words hyphens-auto rounded px-4 py-3.5", style.box, className)}>
       <p
         className={cn(
-          "font-display text-[1.375rem] leading-tight",
+          "font-mono text-[0.9375rem] font-medium leading-tight",
           muted ? "text-muted-foreground" : "text-foreground",
           kind === "planned" && "italic"
         )}
@@ -66,7 +66,7 @@ export const DiagramNode = ({ kind, title, subtitle, items, className }: Diagram
         )}
         {title}
       </p>
-      {subtitle && <p className={cn("mt-1 text-[0.8125rem] leading-snug", style.subtitle)}>{subtitle}</p>}
+      {subtitle && <p className={cn("mt-1 font-mono text-xs leading-snug", style.subtitle)}>{subtitle}</p>}
       {items && items.length > 0 && (
         <ul className="mt-2.5 space-y-1">
           {items.map((item) => (

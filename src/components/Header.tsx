@@ -1,58 +1,76 @@
-import { useState } from "react";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Github, Linkedin } from "lucide-react";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import ThemeToggle from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useLang, useT } from "@/i18n/context";
 import { links } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
-const sectionIds = ["work", "skills", "experience", "contact"] as const;
+const sectionIds = ["work", "experience", "contact"] as const;
 
-/** Text links to the CV, GitHub and LinkedIn, used in the hero, menu and contact. */
+const iconLink = "-m-3 flex min-h-[44px] min-w-[44px] items-center justify-center p-3 transition-colors hover:text-primary";
+
+/** The CV as a text link, GitHub and LinkedIn as icons. Used in the hero. */
 export const ProfileLinks = ({ className }: { className?: string }) => {
   const t = useT();
   return (
-    <p className={cn("flex flex-wrap gap-x-5 gap-y-2", className)}>
+    <p className={cn("flex items-center gap-7", className)}>
       <a href={links.cv[useLang()]} download className="link">
         {t.links.cv}
       </a>
-      <a href={links.github} target="_blank" rel="noopener noreferrer" className="link">
-        {t.links.github}
+      <a
+        href={links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t.links.github}
+        title={t.links.github}
+        className={iconLink}
+      >
+        <Github className="h-5 w-5" strokeWidth={1.6} aria-hidden />
       </a>
-      <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="link">
-        {t.links.linkedin}
+      <a
+        href={links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t.links.linkedin}
+        title={t.links.linkedin}
+        className={iconLink}
+      >
+        <Linkedin className="h-5 w-5" strokeWidth={1.6} aria-hidden />
       </a>
     </p>
   );
 };
 
-/** Minimal one-line header: name on the left; four quiet links and SV · EN on the right. */
+/**
+ * One quiet line: name on the left; three section links, SV · EN and the
+ * theme toggle on the right. On phones the section links are hidden — the
+ * page is short enough to scroll.
+ */
 const Header = () => {
   const t = useT();
   const active = useActiveSection(sectionIds);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const sections = sectionIds.map((id) => ({ id, label: t.nav[id] }));
 
   return (
-    <header className="page flex items-baseline justify-between gap-4 py-6 text-[0.8125rem] sm:py-7">
-      <a href="#top" className="font-medium hover:text-primary">
+    <header className="page flex items-center justify-between gap-4 py-4 text-sm sm:py-6">
+      <a href="#top" className="font-semibold tracking-[-0.01em] hover:text-primary">
         Lirije Shabani
       </a>
 
-      <div className="flex items-baseline gap-6 sm:gap-9">
+      <div className="flex items-center gap-6 sm:gap-8">
         <nav aria-label={t.a11y.mainNav} className="hidden sm:block">
-          <ul className="flex gap-9">
-            {sections.map((s) => (
-              <li key={s.id}>
+          <ul className="flex gap-8">
+            {sectionIds.map((id) => (
+              <li key={id}>
                 <a
-                  href={`#${s.id}`}
-                  aria-current={active === s.id ? "location" : undefined}
+                  href={`#${id}`}
+                  aria-current={active === id ? "location" : undefined}
                   className={cn(
                     "transition-colors hover:text-primary",
-                    active === s.id && "underline decoration-rose underline-offset-4"
+                    active === id && "underline decoration-rose underline-offset-4"
                   )}
                 >
-                  {s.label}
+                  {t.nav[id]}
                 </a>
               </li>
             ))}
@@ -60,31 +78,7 @@ const Header = () => {
         </nav>
 
         <LanguageSwitch />
-
-        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-          <SheetTrigger className="-my-3 -mr-3 min-h-[44px] min-w-[44px] px-3 sm:hidden" aria-label={t.a11y.openMenu}>
-            {t.nav.menu}
-          </SheetTrigger>
-          <SheetContent side="right" className="flex w-full flex-col border-0 bg-background px-[var(--gutter)] sm:max-w-sm">
-            <SheetTitle className="text-[0.8125rem] font-medium">Lirije Shabani</SheetTitle>
-            <nav aria-label={t.a11y.mobileNav} className="mt-16">
-              <ul className="space-y-3">
-                {sections.map((s) => (
-                  <li key={s.id}>
-                    <a
-                      href={`#${s.id}`}
-                      onClick={() => setMenuOpen(false)}
-                      className="font-display text-5xl leading-tight hover:text-primary"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <ProfileLinks className="mt-auto pb-6 text-sm" />
-          </SheetContent>
-        </Sheet>
+        <ThemeToggle />
       </div>
     </header>
   );

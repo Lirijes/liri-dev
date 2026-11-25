@@ -1,83 +1,50 @@
-import { Reveal, SectionHead } from "@/components/editorial";
-import { educationByLang, rolesByLang, type Role } from "@/data/experience";
+import { Reveal } from "@/components/editorial";
+import { educationByLang, rolesByLang } from "@/data/experience";
 import { useLang, useT } from "@/i18n/context";
-import { projectHash } from "@/lib/hash-route";
 
-const Description = ({ description }: { description: Role["description"] }) =>
-  typeof description === "string" ? (
-    <>{description}</>
-  ) : (
-    <>
-      {description.before}
-      <a href={projectHash(description.projectId)} className="link">
-        {description.linkText}
-      </a>
-      {description.after}
-    </>
-  );
+const row = "flex flex-col gap-x-5 gap-y-1 border-b border-rule sm:grid sm:grid-cols-[1fr_1fr_9rem] sm:items-baseline";
 
 /**
- * Experience (about 65%) and education (about 35%) side by side on desktop,
- * stacked on phones with experience first.
+ * Experience: one line per role, then education in the same compact form
+ * (programme and school only), then the tools I use most.
  */
 const Experience = () => {
   const t = useT();
   const lang = useLang();
   const roles = rolesByLang[lang];
-  const education = educationByLang[lang];
+  // Full programmes only; the short university courses stay off the homepage.
+  const education = educationByLang[lang].filter((e) => !e.small);
 
   return (
-    <section
-      id="experience"
-      aria-label={t.experience.sectionLabel}
-      className="page section-gap grid scroll-mt-4 gap-y-20 lg:grid-cols-[65fr_35fr] lg:gap-x-[4.5rem]"
-    >
-      <div>
-        <SectionHead label={t.experience.experience} />
-        <Reveal>
-          <ol>
-            {roles.map((r) => (
-              <li
-                key={r.company}
-                className="grid gap-x-6 gap-y-1.5 border-b border-rule py-7 sm:grid-cols-[9.5rem_1fr]"
-              >
-                <p className="text-[0.8125rem] text-muted-foreground sm:pt-2.5">{r.period}</p>
-                <div>
-                  <h3 className="font-display text-[clamp(1.75rem,2.6vw,2rem)] leading-tight">{r.company}</h3>
-                  <p className="mt-1 text-[0.8125rem] text-muted-foreground">
-                    {r.role} · {r.location}
-                  </p>
-                  <p className="mt-2.5 max-w-2xl text-[0.9375rem] leading-relaxed text-ink-soft">
-                    <Description description={r.description} />
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
+    <section id="experience" aria-labelledby="experience-heading" className="page section-gap scroll-mt-4">
+      <h2 id="experience-heading" className="label text-muted-foreground">
+        {t.experience.heading}
+      </h2>
+      <Reveal>
+        <ul className="mt-5 border-t border-rule">
+          {roles.map((r) => (
+            <li key={r.company} className={`${row} py-[1.125rem]`}>
+              <h3 className="text-[1.1875rem] font-medium tracking-[-0.02em]">{r.company}</h3>
+              <p className="text-[0.9375rem] text-muted-foreground">{r.role}</p>
+              <p className="font-mono text-[0.8125rem] text-muted-foreground sm:text-right">
+                {r.period.replace(" — ", "–")}
+              </p>
+            </li>
+          ))}
+        </ul>
 
-      <div>
-        <SectionHead label={t.experience.education} />
-        <Reveal>
-          <ol>
-            {education.map((e) => (
-              <li key={e.title} className="border-b border-rule py-5">
-                <h3
-                  className={
-                    e.small
-                      ? "text-[0.9375rem] leading-relaxed text-ink-soft"
-                      : "font-display text-2xl leading-tight"
-                  }
-                >
-                  {e.title}
-                </h3>
-                <p className="mt-1.5 text-[0.8125rem] text-muted-foreground">{e.meta}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
+        <h3 className="label mt-12 text-muted-foreground">{t.experience.education}</h3>
+        <ul className="mt-4 border-t border-rule">
+          {education.map((e) => (
+            <li key={e.title} className={`${row} py-4`}>
+              <p className="text-[1.0625rem] font-medium tracking-[-0.01em]">{e.title}</p>
+              <p className="text-[0.9375rem] text-muted-foreground">{e.meta.split(" · ")[0]}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-7 font-mono text-[0.8125rem] leading-relaxed text-muted-foreground">{t.experience.tools}</p>
+      </Reveal>
     </section>
   );
 };

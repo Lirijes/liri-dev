@@ -1,33 +1,25 @@
 import profileImage from "@/assets/profile.jpg";
-import { Fact, Reveal } from "@/components/editorial";
+import { Reveal } from "@/components/editorial";
 import { ProfileLinks } from "@/components/Header";
 import { useT } from "@/i18n/context";
 
 /**
- * Hero: the name as the headline, then a rule and three columns —
- * portrait (uncropped), introduction and a compact facts column.
+ * Hero: a short greeting, two sentences about me and the profile links. The
+ * uncropped portrait sits beside the text on desktop and after it on phones,
+ * so the greeting is always the first thing you read.
  */
 const About = () => {
   const t = useT();
   return (
-    <section id="top" aria-label={t.hero.sectionLabel} className="page pt-8 sm:pt-14">
-      <Reveal>
-        <h1 className="type-name">
-          Lirije
-          <br />
-          Shabani<span className="text-primary">.</span>
-        </h1>
-      </Reveal>
-
-      <Reveal delay={0.1} className="mt-10 grid gap-10 border-t border-foreground pt-6 sm:mt-16 md:grid-cols-12 md:gap-x-6">
-        {/* Introduction first in source order: on a phone it is read before the photo. */}
-        <div className="space-y-6 md:col-span-7 md:col-start-6 lg:col-span-4 lg:col-start-5">
-          <p className="type-statement">
-            {t.hero.statementBefore}
-            <em className="text-primary">{t.hero.statementEmphasis}</em>
-            {t.hero.statementAfter}
-          </p>
-          <p className="max-w-xl leading-relaxed text-ink-soft">{t.hero.intro}</p>
+    <section id="top" aria-label={t.hero.sectionLabel} className="page pt-12 sm:pt-24">
+      <Reveal className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-16">
+        <div className="max-w-2xl">
+          <h1 className="font-display text-[clamp(2.75rem,6.4vw,4.75rem)] leading-none tracking-[-0.045em]">
+            {t.hero.greetingBefore}
+            <span className="text-primary">{t.hero.greetingName}</span>
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">{t.hero.intro}</p>
+          <ProfileLinks className="mt-7 text-sm" />
         </div>
 
         <img
@@ -35,17 +27,8 @@ const About = () => {
           alt={t.hero.portraitAlt}
           width={904}
           height={1294}
-          className="block h-auto w-3/5 max-w-[340px] sm:w-2/5 md:col-span-4 md:col-start-1 md:row-start-1 md:w-full lg:col-span-3"
+          className="block h-auto w-[180px] shrink-0 sm:w-[200px] md:w-[230px]"
         />
-
-        <dl className="grid gap-5 sm:grid-cols-2 md:col-span-7 md:col-start-6 lg:col-span-3 lg:col-start-10 lg:row-start-1 lg:grid-cols-1">
-          <Fact term={t.hero.based}>{t.hero.basedValue}</Fact>
-          <Fact term={t.hero.focus}>{t.hero.focusValue}</Fact>
-          <Fact term={t.hero.now}>{t.hero.nowValue}</Fact>
-          <Fact term={t.hero.links}>
-            <ProfileLinks />
-          </Fact>
-        </dl>
       </Reveal>
     </section>
   );
