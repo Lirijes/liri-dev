@@ -16,19 +16,17 @@ const setMeta = (selector: string, content: string) =>
 
 /**
  * One page, two views chosen by the URL hash: the portfolio itself, or a
- * featured project's case study (#project/<id>). Secondary projects
- * (#project/<id> for a non-featured id) open their row on the portfolio.
+ * project's own page (#project/<id>). Every project has a page.
  * The language (?lang=en) is independent of the hash, so switching it keeps
  * the current view.
  */
 const Index = () => {
   const t = useT();
   const projects = useProjects();
-  const featured = projects.filter((p) => p.featured);
   const hash = useHash();
   const route = parseProjectHash(hash, projectIds);
-  const caseIndex = route ? featured.findIndex((p) => p.id === route.id) : -1;
-  const caseProject = caseIndex >= 0 ? featured[caseIndex] : null;
+  const caseIndex = route ? projects.findIndex((p) => p.id === route.id) : -1;
+  const caseProject = caseIndex >= 0 ? projects[caseIndex] : null;
   const isFirstRender = useRef(true);
 
   // Title and description follow both the view and the language.
@@ -83,13 +81,12 @@ const Index = () => {
           <CaseStudy
             key={caseProject.id}
             project={caseProject}
-            number={String(caseIndex + 1).padStart(2, "0")}
-            next={featured[(caseIndex + 1) % featured.length] ?? null}
+            next={projects[(caseIndex + 1) % projects.length] ?? null}
           />
         ) : (
           <>
             <About />
-            <Projects openRowId={route?.id ?? null} />
+            <Projects />
             <Experience />
             <Contact />
           </>

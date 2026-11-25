@@ -23,7 +23,7 @@ describe("translation parity", () => {
     status: p.status,
     featured: p.featured,
     context: p.context,
-    decisionsTerm: p.decisionsTerm,
+    architectureLabel: p.architectureLabel,
     visualTone: p.visualTone,
     visual: p.visual.kind === "image" ? p.visual.src : p.visual.id,
     images: p.images,
@@ -32,9 +32,12 @@ describe("translation parity", () => {
     plannedTech: p.plannedTech,
     links: p.links.map((l) => [l.type, l.url]),
     tech: p.tech.map((g) => g.items.length),
-    keyPoints: p.keyPoints?.length,
-    highlights: p.highlights?.length,
-    implementation: p.implementation?.length,
+    paragraphs: p.background.split("\n\n").length,
+    currentFocus: Boolean(p.currentFocus),
+    techNote: Boolean(p.techNote),
+    challengesIntro: Boolean(p.challengesIntro),
+    builtItems: p.builtItems?.length,
+    learnings: p.learnings?.length,
     decisions: p.decisions.map((d) => Boolean(d.why)),
     built: p.progress?.built.length,
     inProgress: p.progress?.inProgress?.length,
@@ -49,8 +52,9 @@ describe("translation parity", () => {
     projectsByLang.sv.forEach((sv, i) => {
       const en = projectsByLang.en[i];
       expect(sv.summary).not.toBe(en.summary);
-      expect(sv.overview).not.toBe(en.overview);
-      expect(sv.decisions[0].title).not.toBe(en.decisions[0].title);
+      expect(sv.background).not.toBe(en.background);
+      expect(sv.myRole).not.toBe(en.myRole);
+      if (sv.decisions.length) expect(sv.decisions[0].title).not.toBe(en.decisions[0].title);
     });
   });
 });
@@ -111,17 +115,15 @@ describe("switching language", () => {
     window.history.replaceState(null, "", "/#project/nodia/decisions");
     render(<App />);
     expect(screen.getByRole("heading", { level: 1, name: "Nodia" })).toBeInTheDocument();
-    const chaptersSv = screen.getByRole("navigation", { name: "Kapitel" });
-    expect(within(chaptersSv).getByRole("link", { name: "Lösningar" })).toHaveAttribute("href", "#project/nodia/decisions");
+    expect(screen.getByRole("heading", { level: 2, name: "Tekniska utmaningar" })).toBeInTheDocument();
     expect(document.title).toBe("Nodia — Lirije Shabani");
 
     switchTo("EN");
     expect(window.location.hash).toBe("#project/nodia/decisions");
     expect(window.location.search).toBe("?lang=en");
     expect(screen.getByRole("heading", { level: 1, name: "Nodia" })).toBeInTheDocument();
-    const chaptersEn = screen.getByRole("navigation", { name: "Chapters" });
-    expect(within(chaptersEn).getByRole("link", { name: "Solutions" })).toHaveAttribute("href", "#project/nodia/decisions");
-    expect(screen.getByRole("button", { name: /The API is the only path to the data/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Technical challenges" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "No shortcut past the API" })).toBeInTheDocument();
   });
 
   it("keeps the language while navigating between pages", () => {
@@ -129,32 +131,34 @@ describe("switching language", () => {
     render(<App />);
     goTo("#project/minsommar");
     expect(window.location.search).toBe("?lang=en");
-    expect(screen.getByRole("navigation", { name: "Chapters" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "MinSommar" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Technical challenges" })).toBeInTheDocument();
     goTo("#featured-minsommar");
     expect(screen.getByRole("region", { name: "Projects" })).toBeInTheDocument();
   });
 
-  it("keeps an open secondary project row open when switching", () => {
+  it("stays on a smaller project's page when switching", () => {
     window.history.replaceState(null, "", "/#project/inspecto");
     render(<App />);
-    expect(screen.getByRole("button", { name: /Inspecto/ })).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("heading", { level: 2, name: "Varför jag byggde Inspecto" })).toBeInTheDocument();
+    expect(screen.getByText("Pausat")).toBeInTheDocument();
     switchTo("EN");
-    expect(screen.getByRole("button", { name: /Inspecto/ })).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("region", { name: "Inspecto details" })).toBeInTheDocument();
+    expect(window.location.hash).toBe("#project/inspecto");
+    expect(screen.getByRole("heading", { level: 2, name: "Why I built Inspecto" })).toBeInTheDocument();
+    expect(screen.getByText("Paused")).toBeInTheDocument();
   });
 });
 
 describe("no English left in the Swedish interface", () => {
   const englishUi =
-    /\b(Selected work|More projects|Explore project|Technical highlights|Experience|Education|Skills|Let's|Overview|Architecture|Technical decisions|Implementation|Screenshots|Progress|Built|Planned|Not built yet|Next project|My role|All work|Sole Developer|Personal)\b/;
+    /\b(Selected work|More projects|Explore project|Technical highlights|Experience|Education|Skills|Let's|Overview|Architecture|Technical decisions|Implementation|Screenshots|Progress|Built|Planned|Not built yet|Next project|My role|All work|Sole Developer|Personal|Background|How I work|How I worked|What I built|What I've learned|Where it stands|Paused|Internal tool)\b/;
 
   it("on the homepage", () => {
     render(<App />);
-    fireEvent.click(screen.getByRole("button", { name: /Inspecto/ }));
     expect(document.getElementById("main")!.textContent).not.toMatch(englishUi);
   });
 
-  it.each(["nodia", "minsommar"])("on the %s case study", (id) => {
+  it.each(["nodia", "minsommar", "inspecto", "review-management-tool", "sitemap-generator"])("on the %s page", (id) => {
     window.history.replaceState(null, "", `/#project/${id}`);
     render(<App />);
     expect(document.getElementById("main")!.textContent).not.toMatch(englishUi);
@@ -177,43 +181,49 @@ describe("multi-paragraph project texts", () => {
     expect(nodia.textContent).not.toMatch(/404/);
   });
 
-  it("shows the Swedish Nodia overview on the case study as three paragraphs", () => {
+  it("tells why Nodia exists in her own words, as separate paragraphs", () => {
     window.history.replaceState(null, "", "/#project/nodia");
     render(<App />);
-    expect(screen.getByText(/^Nodia är en AI-plattform jag utvecklar/).tagName).toBe("P");
-    expect(screen.getByText(/^Jag har börjat med den tekniska grunden/).tagName).toBe("P");
-    expect(screen.getByText(/^Frontenden är byggd i React och TypeScript/).tagName).toBe("P");
+    expect(screen.getByRole("heading", { level: 2, name: "Varför jag började bygga Nodia" })).toBeInTheDocument();
+    expect(screen.getByText(/^Idén till Nodia växte fram när jag arbetade på Readymade\./).tagName).toBe("P");
+    expect(screen.getByText(/^Jag började undersöka om det fanns system/).tagName).toBe("P");
+    expect(screen.getByText(/^Min idé blev att bygga en plattform/).tagName).toBe("P");
+    expect(screen.getByText("Det är den långsiktiga visionen för Nodia.").tagName).toBe("P");
   });
 });
 
 describe("transparent Nodia presentation", () => {
   it.each([
-    ["sv", "Tekniska lösningar", "Lösningar", "Lösning"],
-    ["en", "Technical solutions", "Solutions", "Solution"],
-  ] as const)("labels Nodia's chapter as solutions (%s)", (lang, heading, menu, rowLabel) => {
+    ["sv", "Tekniska utmaningar", "Lösning", "Så arbetar jag"],
+    ["en", "Technical challenges", "Solution", "How I work"],
+  ] as const)("labels Nodia's challenges with 'solution' and shows how I work (%s)", (lang, heading, rowLabel, howIWork) => {
     window.history.replaceState(null, "", `/?lang=${lang}#project/nodia`);
     render(<App />);
     expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: lang === "sv" ? "Kapitel" : "Chapters" })).toHaveTextContent(menu);
-    expect(screen.getAllByText(rowLabel, { selector: "dt" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(rowLabel, { selector: "dt" })).toHaveLength(3);
+    const role = screen.getByRole("heading", { level: 3, name: howIWork }).nextElementSibling!;
+    expect(role).toHaveTextContent(/Claude/);
   });
 
   it.each([
-    ["sv", "Tekniska beslut", "Beslut"],
-    ["en", "Technical decisions", "Decisions"],
-  ] as const)("keeps 'decisions' for other projects (%s)", (lang, heading, menu) => {
+    ["sv", "Tekniska utmaningar", "Lösning", "Bakgrund"],
+    ["en", "Technical challenges", "Solution", "Background"],
+  ] as const)("uses the same headings on every project page (%s)", (lang, heading, rowLabel, background) => {
     window.history.replaceState(null, "", `/?lang=${lang}#project/minsommar`);
     render(<App />);
     expect(screen.getByRole("heading", { level: 2, name: heading })).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: lang === "sv" ? "Kapitel" : "Chapters" })).toHaveTextContent(menu);
+    expect(screen.getAllByText(rowLabel, { selector: "dt" })).toHaveLength(3);
+    goTo("#project/review-management-tool");
+    expect(screen.getByRole("heading", { level: 2, name: background })).toBeInTheDocument();
   });
 
   it.each(["sv", "en"] as const)("states the AI-assisted role and the Lovable origin (%s)", (lang) => {
     const nodia = projectsByLang[lang].find((p) => p.id === "nodia")!;
     expect(nodia.role).toMatch(lang === "sv" ? /AI-assisterat/ : /AI-assisted/);
     expect(nodia.myRole).toMatch(/Claude/);
-    expect(nodia.overview).toMatch(/Lovable/);
-    expect(nodia.overview).toMatch(/Vite/);
-    expect(nodia.overview).toMatch(/React Router/);
+    // The Lovable origin is shown on the page, under the tech list.
+    expect(nodia.techNote).toMatch(/Lovable/);
+    expect(nodia.techNote).toMatch(/Vite/);
+    expect(nodia.techNote).toMatch(/React Router/);
   });
 });

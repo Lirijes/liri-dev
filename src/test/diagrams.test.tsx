@@ -33,7 +33,7 @@ describe("diagrams", () => {
   it("does not describe the Sitemap Generator as a crawler", () => {
     const sitemap = projects.find((p) => p.id === "sitemap-generator")!;
     const { container } = renderIn("en", <ProjectDiagram id="sitemap-pipeline" />);
-    const text = [container.textContent, sitemap.summary, sitemap.overview, ...(sitemap.highlights ?? [])].join(" ");
+    const text = [container.textContent, sitemap.summary, sitemap.background, sitemap.architecture].join(" ");
     expect(text).not.toMatch(/crawl/i);
   });
 });

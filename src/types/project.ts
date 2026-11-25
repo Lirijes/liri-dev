@@ -1,5 +1,5 @@
 export type ProjectType = "Web" | "App" | "Backend" | "Fullstack";
-export type ProjectStatus = "Live" | "Demo" | "Internal" | "In development";
+export type ProjectStatus = "Live" | "Demo" | "Internal" | "In development" | "Paused";
 
 /** Ids of the diagram components in src/components/diagrams. */
 export type DiagramId =
@@ -16,7 +16,7 @@ export interface ProjectLink {
   type: "demo" | "github";
 }
 
-/** A technical decision told as problem → decision → reason. */
+/** A technical challenge told as problem → solution → reason. */
 export interface ProjectDecision {
   title: string;
   problem: string;
@@ -38,14 +38,14 @@ export interface ProjectProgress {
   planned?: string[];
 }
 
-/** What the project shows as its main visual on the overview. */
+/** What the project shows as its main visual on the homepage. */
 export type ProjectVisual = { kind: "image"; src: string; alt: string } | { kind: "diagram"; id: DiagramId };
 
-export interface ImplementationNote {
-  title: string;
-  text: string;
-}
-
+/**
+ * One project. Every project has its own page (#project/<id>) built from the
+ * same template; a section is shown only when its field has content, so a
+ * small project gets a short page.
+ */
 export interface Project {
   id: string;
   title: string;
@@ -57,45 +57,45 @@ export interface Project {
   role: string;
   type: ProjectType;
   status: ProjectStatus;
+  /** Shown as a large tile on the homepage; the others are one-line rows. */
   featured?: boolean;
 
-  /** One or two sentences, shown on cards and in the detail header. */
+  /** One or two sentences: the lede of the project page. */
   summary: string;
-  /** Longer description for the Overview tab. */
-  overview: string;
-  /** One sentence describing my role — replaces long responsibility lists. */
+  /** Why the project exists (or, for an assignment, its background). Paragraphs split on a blank line. */
+  background: string;
+  /** Where the work is focused right now (projects in development). */
+  currentFocus?: string;
+  /** How I worked, including exactly how AI was or wasn't used. */
   myRole: string;
-  /** Featured projects: three short "what I built" points. */
-  keyPoints?: string[];
-  /** Featured projects: the homepage text, written as a short story. */
-  story?: string;
-  /** Background of the featured visual panel. */
-  visualTone?: "paper" | "mint";
-  /** Secondary projects: technical highlights shown when the row is opened. */
-  highlights?: string[];
-  /** Featured projects: the Implementation chapter of the case study. */
-  implementation?: ImplementationNote[];
 
+  /** Background of the homepage tile and the screenshots. */
+  visualTone?: "paper" | "mint";
   visual: ProjectVisual;
-  /** Screenshots for the Screenshots tab. */
   images?: string[];
+  /** The diagram shown on the page (the first one). */
   diagrams?: DiagramId[];
-  /** Short text shown above the diagrams in the Architecture tab. */
+  /** Two or three sentences shown with the diagram. */
   architecture?: string;
+  /** Labels the diagram section "How it works" instead of "Architecture". */
+  architectureLabel?: "architecture" | "howItWorks";
 
   cardTech: string[];
   /** Implemented technologies only. */
   tech: TechGroup[];
   /** Technologies that are planned but not used yet — shown separately, never mixed into `tech`. */
   plannedTech?: string[];
-  /** The first decision is shown as the key decision on featured projects. */
+  /** One line under the tech list, e.g. where the frontend started or how it's deployed. */
+  techNote?: string;
+
+  /** Technical challenges as problem → solution → why. Small projects may have none. */
   decisions: ProjectDecision[];
-  /**
-   * How the decisions chapter is labelled. "solutions" (Technical solutions /
-   * Solution) is used where the solutions were largely proposed with AI
-   * assistance, so the wording doesn't imply sole authorship. Default: "decisions".
-   */
-  decisionsTerm?: "decisions" | "solutions";
+  /** One sentence introducing the challenges. */
+  challengesIntro?: string;
+  /** "What I built": used instead of challenges where there is no real problem/solution to tell. */
+  builtItems?: string[];
   progress?: ProjectProgress;
+  /** Concrete things I learned. Left out rather than invented. */
+  learnings?: string[];
   links: ProjectLink[];
 }
