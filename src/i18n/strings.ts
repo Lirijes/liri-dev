@@ -11,6 +11,8 @@ import type { ProjectStatus } from "@/types/project";
 const sv = {
   meta: {
     title: "Lirije Shabani | Fullstackutvecklare",
+    /** Title in link previews (og:title). */
+    shareTitle: "Lirije | Fullstackutvecklare",
     description:
       "Fullstackutvecklare i Sverige med fokus på backend: API:er i C#/.NET, databaser, integrationer och AI. Bygger just nu Nodia, en .NET-plattform för att arbeta med företagsdata med hjälp av AI.",
     caseTitle: (project: string) => `${project} — Lirije Shabani`,
@@ -18,40 +20,29 @@ const sv = {
   a11y: {
     skipToContent: "Hoppa till innehållet",
     mainNav: "Huvudmeny",
-    mobileNav: "Mobilmeny",
-    openMenu: "Öppna meny",
     language: "Språk",
-    home: "Lirije Shabani, till början av sidan",
+    darkMode: "Byt till mörkt läge",
+    lightMode: "Byt till ljust läge",
   },
   nav: {
     work: "Projekt",
-    skills: "Kompetens",
     experience: "Erfarenhet",
     contact: "Kontakt",
-    menu: "Meny",
   },
   languageNames: { sv: "Svenska", en: "English" },
   links: {
     cv: "CV ↓",
-    github: "GitHub ↗",
-    linkedin: "LinkedIn ↗",
+    github: "GitHub",
+    linkedin: "LinkedIn",
     kofi: "Bjud mig på en kaffe ↗",
   },
   hero: {
     sectionLabel: "Introduktion",
-    statementBefore: "Fullstackutvecklare. Det mesta av mitt arbete sker ",
-    statementEmphasis: "bakom API:et",
-    statementAfter: " — datamodeller, behörighetsregler och systemen som håller datan korrekt.",
+    greetingBefore: "Hej, jag är ",
+    greetingName: "Lirije.",
     intro:
-      "Jag har arbetat med e-handelsplattformar, CMS-integrationer och stora mängder produktdata. Just nu bygger jag Nodia, en .NET-plattform för att arbeta med företagsdata med hjälp av AI.",
+      "Jag är fullstackutvecklare med ett särskilt intresse för backend, API:er och hur saker fungerar bakom gränssnittet. När jag inte kodar är jag på gymmet eller ute i naturen.",
     portraitAlt: "Porträtt av Lirije Shabani",
-    based: "Ort",
-    basedValue: "Skene, Sverige",
-    focus: "Fokus",
-    focusValue: "Backend, API:er, data och AI-integration",
-    now: "Just nu",
-    nowValue: "Bygger Nodia · studerar DevSecOps · öppen för nya roller",
-    links: "Länkar",
   },
   status: {
     Live: "Live",
@@ -60,10 +51,8 @@ const sv = {
     "In development": "Under utveckling",
   } satisfies Record<ProjectStatus, string>,
   projects: {
-    sectionLabel: "Utvalda projekt",
-    selectedWork: "Utvalda projekt",
-    moreProjects: "Fler projekt",
-    explore: "Utforska projektet →",
+    sectionLabel: "Projekt",
+    heading: "Projekt",
     exploreLabel: (title: string) => `Utforska projektet: ${title}`,
     personal: "Eget projekt",
     technicalHighlights: "Tekniska höjdpunkter",
@@ -110,23 +99,15 @@ const sv = {
     nextProject: "Nästa projekt",
     openScreenshot: (title: string, i: number, n: number) => `Öppna skärmbild ${i} av ${n} från ${title} i full storlek`,
   },
-  skills: {
-    sectionLabel: "Kompetens",
-    aside: "Stor text: det jag använder mest",
-    aiNote: (tools: string[]) => `Jag använder också AI-assisterad utveckling i det dagliga arbetet, med ${tools.join(" och ")}.`,
-  },
   experience: {
-    sectionLabel: "Erfarenhet och utbildning",
-    experience: "Erfarenhet",
+    sectionLabel: "Erfarenhet",
+    heading: "Erfarenhet",
     education: "Utbildning",
+    tools: "C# · .NET · PostgreSQL · TypeScript · React",
   },
   contact: {
     sectionLabel: "Kontakt",
-    closingBefore: "Hör av ",
-    closingEmphasis: "dig.",
-  },
-  footer: {
-    location: "Skene, Sverige",
+    closing: "Hör av dig — ",
   },
   lightbox: {
     title: (title: string, i: number, n: number) => `${title} — bild ${i} av ${n}`,
@@ -157,6 +138,7 @@ export type Strings = typeof sv;
 const en: Strings = {
   meta: {
     title: "Lirije Shabani | Fullstack Developer",
+    shareTitle: "Lirije | Fullstack Developer",
     description:
       "Fullstack developer in Sweden with a focus on backend: C#/.NET APIs, databases, integrations and AI. Currently building Nodia, a .NET platform for working with company data using AI.",
     caseTitle: (project) => `${project} — Lirije Shabani`,
@@ -164,40 +146,29 @@ const en: Strings = {
   a11y: {
     skipToContent: "Skip to content",
     mainNav: "Main",
-    mobileNav: "Mobile",
-    openMenu: "Open menu",
     language: "Language",
-    home: "Lirije Shabani, back to top",
+    darkMode: "Switch to dark mode",
+    lightMode: "Switch to light mode",
   },
   nav: {
-    work: "Work",
-    skills: "Skills",
+    work: "Projects",
     experience: "Experience",
     contact: "Contact",
-    menu: "Menu",
   },
   languageNames: { sv: "Svenska", en: "English" },
   links: {
     cv: "CV ↓",
-    github: "GitHub ↗",
-    linkedin: "LinkedIn ↗",
+    github: "GitHub",
+    linkedin: "LinkedIn",
     kofi: "Buy me a coffee ↗",
   },
   hero: {
     sectionLabel: "Introduction",
-    statementBefore: "Full-stack developer. Most of my work happens ",
-    statementEmphasis: "behind the API",
-    statementAfter: " — data models, access rules and the systems that keep data correct.",
+    greetingBefore: "Hi, I'm ",
+    greetingName: "Lirije.",
     intro:
-      "I've worked on e-commerce platforms, CMS integrations and large volumes of product data. Right now I'm building Nodia, a .NET platform for working with company data using AI.",
+      "I'm a full-stack developer with a particular interest in backend, APIs and how things work behind the interface. When I'm not coding, I'm at the gym or out in nature.",
     portraitAlt: "Portrait of Lirije Shabani",
-    based: "Based",
-    basedValue: "Skene, Sweden",
-    focus: "Focus",
-    focusValue: "Backend, APIs, data and AI integration",
-    now: "Now",
-    nowValue: "Building Nodia · studying DevSecOps · open to new roles",
-    links: "Links",
   },
   status: {
     Live: "Live",
@@ -206,10 +177,8 @@ const en: Strings = {
     "In development": "In development",
   },
   projects: {
-    sectionLabel: "Selected work",
-    selectedWork: "Selected work",
-    moreProjects: "More projects",
-    explore: "Explore project →",
+    sectionLabel: "Projects",
+    heading: "Projects",
     exploreLabel: (title) => `Explore project: ${title}`,
     personal: "Personal",
     technicalHighlights: "Technical highlights",
@@ -256,23 +225,15 @@ const en: Strings = {
     nextProject: "Next project",
     openScreenshot: (title, i, n) => `Open ${title} screenshot ${i} of ${n} full size`,
   },
-  skills: {
-    sectionLabel: "Skills",
-    aside: "Large: what I use most",
-    aiNote: (tools) => `I also use AI-assisted development day to day, with ${tools.join(" and ")}.`,
-  },
   experience: {
-    sectionLabel: "Experience and education",
-    experience: "Experience",
+    sectionLabel: "Experience",
+    heading: "Experience",
     education: "Education",
+    tools: "C# · .NET · PostgreSQL · TypeScript · React",
   },
   contact: {
     sectionLabel: "Contact",
-    closingBefore: "Let's ",
-    closingEmphasis: "talk.",
-  },
-  footer: {
-    location: "Skene, Sweden",
+    closing: "Get in touch — ",
   },
   lightbox: {
     title: (title, i, n) => `${title} — image ${i} of ${n}`,

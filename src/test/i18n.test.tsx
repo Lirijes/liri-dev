@@ -82,7 +82,7 @@ describe("switching language", () => {
     render(<App />);
     expect(document.documentElement.lang).toBe("sv");
     expect(document.title).toBe("Lirije Shabani | Fullstackutvecklare");
-    expect(screen.getByRole("region", { name: "Utvalda projekt" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Projekt" })).toBeInTheDocument();
     expect(window.location.search).toBe("");
   });
 
@@ -97,12 +97,12 @@ describe("switching language", () => {
     expect(document.documentElement.lang).toBe("en");
     expect(document.title).toBe("Lirije Shabani | Fullstack Developer");
     expect(document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "").toMatch(/^Fullstack developer/);
-    expect(screen.getByRole("region", { name: "Selected work" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Projects" })).toBeInTheDocument();
     expect(window.location.search).toBe("?lang=en");
     expect(window.localStorage.getItem("liri-dev.lang")).toBe("en");
 
     switchTo("SV");
-    expect(screen.getByRole("region", { name: "Utvalda projekt" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Projekt" })).toBeInTheDocument();
     expect(window.location.search).toBe("");
     expect(window.localStorage.getItem("liri-dev.lang")).toBe("sv");
   });
@@ -131,7 +131,7 @@ describe("switching language", () => {
     expect(window.location.search).toBe("?lang=en");
     expect(screen.getByRole("navigation", { name: "Chapters" })).toBeInTheDocument();
     goTo("#featured-minsommar");
-    expect(screen.getByRole("region", { name: "Selected work" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Projects" })).toBeInTheDocument();
   });
 
   it("keeps an open secondary project row open when switching", () => {
@@ -162,13 +162,11 @@ describe("no English left in the Swedish interface", () => {
 });
 
 describe("multi-paragraph project texts", () => {
-  it("shows the new short Swedish Nodia description on the homepage", () => {
+  it("shows Nodia on the homepage as a tile with a Swedish tagline and status", () => {
     render(<App />);
     const nodia = document.getElementById("featured-nodia")!;
-    const description = within(nodia).getByText(/^En AI-plattform för företag som vill söka i och arbeta med sin egen data./);
-    expect(description.tagName).toBe("P");
-    expect(description).toHaveTextContent("AI-funktionerna är nästa steg.");
-    expect(nodia.textContent).not.toMatch(/Jag bygger Nodia|Den som inte är medlem får 404/);
+    expect(within(nodia).getByText("AI-plattform för företagsdata · under utveckling")).toBeInTheDocument();
+    expect(within(nodia).getByRole("link", { name: "Utforska projektet: Nodia" })).toHaveAttribute("href", "#project/nodia");
   });
 
   it.each(["SV", "EN"] as const)("shows no pull quote on the homepage (%s)", (code) => {

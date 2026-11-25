@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- "L." without a background. Colours follow the browser's light/dark theme. -->
+  <style>
+    .l { fill: #241519; }
+    .dot { fill: #7A2E43; }
+    @media (prefers-color-scheme: dark) {
+      .l { fill: #E9DED9; }
+      .dot { fill: #C99AA4; }
+    }
+  </style>
+  <path class="l" d="M5 3h5.4v20.4H21V28H5z"/>
+  <circle class="dot" cx="26.4" cy="25.1" r="3"/>
+</svg>

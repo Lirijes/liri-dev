@@ -7,6 +7,7 @@ export const projectsSv: Project[] = [
   {
     id: "nodia",
     title: "Nodia",
+    tagline: "AI-plattform för företagsdata",
     year: "2026",
     role: "Projektägare & utvecklare (AI-assisterat)",
     type: "Fullstack",
@@ -121,6 +122,7 @@ export const projectsSv: Project[] = [
   {
     id: "minsommar",
     title: "MinSommar",
+    tagline: "Sommarplanerare för familjer",
     year: "2026",
     role: "Ensam utvecklare",
     type: "Fullstack",
@@ -212,6 +214,7 @@ export const projectsSv: Project[] = [
   {
     id: "inspecto",
     title: "Inspecto",
+    tagline: "Ärendehantering + .NET-API",
     year: "2026",
     role: "Ensam utvecklare",
     type: "Fullstack",
@@ -262,6 +265,7 @@ export const projectsSv: Project[] = [
   {
     id: "review-management-tool",
     title: "Review Management Tool",
+    tagline: "Internt verktyg · RevolutionRace",
     context: "RevolutionRace",
     year: "2024",
     role: "Fullstackutvecklare (praktik)",
@@ -303,6 +307,7 @@ export const projectsSv: Project[] = [
   {
     id: "sitemap-generator",
     title: "Sitemap Generator",
+    tagline: "Webbsida → XML · C#",
     year: "2024",
     role: "Ensam utvecklare",
     type: "Backend",

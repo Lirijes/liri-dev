@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CaseStudy from "@/components/projects/CaseStudy";
@@ -38,7 +37,7 @@ const Index = () => {
     const description = caseProject ? caseProject.summary : t.meta.description;
     document.title = title;
     setMeta('meta[name="description"]', description);
-    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[property="og:title"]', caseProject ? title : t.meta.shareTitle);
     setMeta('meta[property="og:description"]', description);
   }, [caseProject, t]);
 
@@ -91,7 +90,6 @@ const Index = () => {
           <>
             <About />
             <Projects openRowId={route?.id ?? null} />
-            <Skills />
             <Experience />
             <Contact />
           </>

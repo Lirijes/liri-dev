@@ -49,6 +49,8 @@ export interface ImplementationNote {
 export interface Project {
   id: string;
   title: string;
+  /** A few words shown next to the title on the homepage, e.g. "Summer planner for families". */
+  tagline: string;
   /** Where the work was done, e.g. "RevolutionRace". Personal projects leave it out. */
   context?: string;
   year: string;
