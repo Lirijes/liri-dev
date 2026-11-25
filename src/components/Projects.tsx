@@ -5,7 +5,7 @@ import FeaturedTile from "./projects/FeaturedTile";
 import ProjectIndex from "./projects/ProjectIndex";
 
 /** Projects: the featured ones as two tiles, the rest as one-line rows. */
-const Projects = ({ openRowId = null }: { openRowId?: string | null }) => {
+const Projects = () => {
   const t = useT();
   const projects = useProjects();
   const featured = projects.filter((p) => p.featured);
@@ -25,7 +25,7 @@ const Projects = ({ openRowId = null }: { openRowId?: string | null }) => {
 
       {others.length > 0 && (
         <div className="mt-14">
-          <ProjectIndex projects={others} openId={openRowId} />
+          <ProjectIndex projects={others} />
         </div>
       )}
     </section>
